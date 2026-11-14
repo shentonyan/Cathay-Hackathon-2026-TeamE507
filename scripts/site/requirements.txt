@@ -1,1 +1,2 @@
-matplotlib>=3.8,<4
+# No Python dependencies. Formula generation uses the standard library and
+# the pinned MathJax development dependency installed by npm ci.

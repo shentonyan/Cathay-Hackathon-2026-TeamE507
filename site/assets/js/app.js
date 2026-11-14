@@ -626,12 +626,28 @@ function mdSymRows(){
     return head+`<tr><td class="sym">${r.s}</td><td>${esc(r.n)}</td><td class="n">${val}</td><td class="muted">${esc(r.u||'')}</td><td class="muted small">${esc(r.src||'')}</td></tr>`;
   }).join('');
 }
+let modelMathObserver;
+function observeModelMath(host){
+  if(modelMathObserver) modelMathObserver.disconnect();
+  const update=frame=>{
+    const overflow=frame.scrollWidth>frame.clientWidth+1;
+    frame.classList.toggle('has-overflow',overflow);
+    frame.tabIndex=overflow?0:-1;
+    frame.nextElementSibling.hidden=!overflow;
+  };
+  const frames=[...host.querySelectorAll('.eqf')];
+  frames.forEach(update);
+  if(typeof ResizeObserver!=='undefined'){
+    modelMathObserver=new ResizeObserver(entries=>entries.forEach(({target})=>update(target)));
+    frames.forEach(frame=>modelMathObserver.observe(frame));
+  }
+}
 function renderModel(){
   const host=$('mdJoint'); if(!host) return;
   const num=(v,d=2)=>v==null?'—':Number(v).toLocaleString('zh-Hant',{maximumFractionDigits:d});
   const tbl=(heads,rows,cls)=>`<div class="model-table-wrap" tabindex="0" role="region"><table class="model-table ${cls||''}"><thead><tr>${heads.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
   const row=c=>'<tr>'+c.map(v=>`<td>${v}</td>`).join('')+'</tr>';
-  const eq=e=>`<div class="eqr"><div class="eqb"><div class="eqh">${esc(e.h)}</div><div class="eqf" tabindex="0">${e.mml}</div><p>${esc(e.p)}</p></div><span class="eqn">(${e.n})</span></div>`;
+  const eq=e=>`<article class="eqr" id="model-equation-${e.n}" aria-labelledby="model-equation-title-${e.n}"><div class="eqhead"><h4 class="eqh" id="model-equation-title-${e.n}">${esc(e.h)}</h4><span class="eqn" aria-label="公式 ${e.n}">(${e.n})</span></div><div class="eqf" role="region" aria-label="公式 ${e.n}：${esc(e.h)}">${(e.parts||[e.mml]).map(svg=>`<div class="eqline">${svg}</div>`).join('')}</div><p class="eq-scroll-hint" hidden>↔ 左右滑動或使用方向鍵，查看完整公式</p><p class="eqdesc">${esc(e.p)}</p></article>`;
   const B=S.B,J=S.J,F=selfish(),money=can('money');
   const tasks=T.map(t=>row([`<b>${esc(t.reg)}</b> ${esc(t.name)}`,t.cls==='R'?num(t.mu,2):'—',t.cls==='R'?num(t.sig,2):'—',num(t.f0,3),num(t.k,4),t.cls==='R'?'—':num(t.r,2),num(t.v,0),num(t.dur,0),`${num(t.mh.B1,0)} / ${num(t.mh.B2,0)}`,`<span class="muted small">${esc(PLAIN(t.basis||''))}</span>`]));
   const caps=Object.entries(P.stations).map(([st,c])=>row([CITY[st]||st,num(c.bays,0),num(c.B1,0),num(c.B2,0),num(c.stand,0),num(c.wash,0),`${num(P.labour[st].B1,0)} / ${num(P.labour[st].B2,0)}`,num(P.hangarFee[st],0)]));
@@ -668,6 +684,7 @@ function renderModel(){
   const r=$('mpReset'); if(r){r.hidden=!Object.keys(S.over).length; r.onclick=()=>{S.over={}; solve(); renderModel(); toast('已恢復預設參數');};}
   if(MD.tab==='joint'){MD.tab=null; setTimeout(()=>{const e=$('mdJointCmp'); if(e&&e.scrollIntoView) e.scrollIntoView({behavior:A11Y.rm?'auto':'smooth',block:'start'});},40);}
   renderRul();
+  observeModelMath(host);
 }
 
 function renderParams(){

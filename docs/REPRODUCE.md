@@ -4,13 +4,13 @@
 
 ## 环境 / Environment
 
-| 工具 / Tool                   | 版本 / Version                               | 用途 / Used for                                |
-| ----------------------------- | -------------------------------------------- | ---------------------------------------------- |
-| Node.js                       | 24（见 `.nvmrc`）                            | Demo、排程复现、测试 / Demo, scheduling, tests |
-| npm                           | 11                                           | 依赖安装 / Install                             |
-| Python                        | 3.11+                                        | 剩余寿命模型 / RUL model                       |
-| NumPy, pandas                 | 见 `experiments/rul-cmapss/requirements.txt` | 训练 / Training                                |
-| matplotlib（可选 / optional） | 3.8+                                         | 重新排版公式 / Re-typeset formulas             |
+| 工具 / Tool                    | 版本 / Version                                    | 用途 / Used for                                |
+| ------------------------------ | ------------------------------------------------- | ---------------------------------------------- |
+| Node.js                        | 24（见 `.nvmrc`）                                 | Demo、排程复现、测试 / Demo, scheduling, tests |
+| npm                            | 11                                                | 依赖安装 / Install                             |
+| Python                         | 3.11+                                             | 剩余寿命模型 / RUL model                       |
+| NumPy, pandas                  | 见 `experiments/rul-cmapss/requirements.txt`      | 训练 / Training                                |
+| MathJax（构建时 / build only） | 4.1.3（由 `npm ci` 安装 / installed by `npm ci`） | 重新排版公式 / Re-typeset formulas             |
 
 不需要 GPU、深度学习框架或网络服务；Demo 完全离线运行。 / No GPU, deep-learning framework or network service is needed; the demo runs fully offline.
 
@@ -65,11 +65,13 @@ npm run reproduce:schedule
 ## 4. 公式排版 / Formula typesetting（可选 / optional）
 
 ```sh
-python -m pip install -r scripts/site/requirements.txt
+npm ci
 python scripts/site/build_formulas.py
 ```
 
-由 [model_spec.py](../scripts/site/model_spec.py) 生成 [model-formulas.js](../site/assets/data/model-formulas.js)：25 条公式、89 个符号。SVG 标识符与 matplotlib 版本可能使文件字节不同；应核对公式内容与排版。 / Generates 25 formulas and 89 symbols. SVG identifiers and matplotlib versions can change the output bytes; compare the formula content and rendering.
+由 [model_spec.py](../scripts/site/model_spec.py) 的原始 LaTeX 生成 [model-formulas.js](../site/assets/data/model-formulas.js)：25 条公式、89 个符号。构建时使用锁定版本的 MathJax，将数学字形写入独立 SVG；浏览器无需加载数学库、网络字体或外部服务。多子句公式按原有间隔分行，长公式保持可读字号并在公式框内横向滚动。 / Generates 25 formulas and 89 symbols from the original LaTeX using the locked MathJax build dependency. Each SVG contains its own glyph paths; viewing requires no math runtime, web fonts or external service. Multi-clause formulas use separate lines, while long lines retain a readable size inside a scrollable frame.
+
+[MODEL.md](MODEL.md) 使用 GitHub 支持的 `math` 围栏和受保护的行内公式。编号放在公式标题中，避免原生 MathML 对带标签表格的布局兼容问题。 / The model document uses GitHub math fences and protected inline expressions. Equation numbers remain in the headings to avoid native MathML layout issues with labeled tables.
 
 ## 5. 质量检查 / Quality checks
 

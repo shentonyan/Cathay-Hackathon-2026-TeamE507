@@ -16,4 +16,4 @@
 | `assets/data/brand-assets.js`   | 国泰翼标 / Cathay brushwing                                                        | 国泰商标 / Cathay trademark      |
 | `assets/vendor/`                | Highcharts 12.1.2、three.js r158                                                   | 第三方 / Third-party             |
 
-脚本按依赖顺序以普通 `<script>` 加载，不需要构建步骤。 / Scripts load as classic `<script>` tags in dependency order; no build step.
+脚本按依赖顺序以普通 `<script>` 加载，运行 Demo 不需要构建。公式由 MathJax 在开发时预排版为独立 SVG，浏览器不加载 MathJax 或外部字体；重新生成见 [复现指南](../docs/REPRODUCE.md)。 / Scripts load as classic `<script>` tags; running the demo needs no build. MathJax pre-typesets the formulas into self-contained SVGs during development, with no browser math runtime or external fonts. See the reproduction guide to regenerate them.
