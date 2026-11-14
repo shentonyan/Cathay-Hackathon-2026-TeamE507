@@ -1,0 +1,31 @@
+name: Feature / 功能
+description: 提出一个可验收的功能
+title: '[Feature] '
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 用户与问题
+      description: 谁遇到了什么问题？本次功能服务哪条演示路径？
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 实现范围
+      description: 描述页面、接口、数据和 mock 边界。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      description: 用可测试的结果描述何时算完成。
+      placeholder: '- [ ] 给定样例输入，用户能完成……'
+    validations:
+      required: true
+  - type: textarea
+    id: coordination
+    attributes:
+      label: 分工与依赖
+      description: 负责人、涉及模块、依赖任务和预期完成时间。

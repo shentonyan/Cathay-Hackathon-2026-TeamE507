@@ -1,0 +1,50 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account*.json
+.aws/
+
+# Dependencies and build outputs
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.turbo/
+*.tsbuildinfo
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Local data and generated artifacts
+data/raw/
+data/private/
+data/processed/
+artifacts/
+outputs/
+tmp/
+temp/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Editors and operating systems
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo

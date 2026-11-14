@@ -1,0 +1,14 @@
+node_modules/
+package-lock.json
+dist/
+build/
+coverage/
+data/raw/
+data/private/
+data/processed/
+artifacts/
+outputs/
+tmp/
+temp/
+.env
+.env.*

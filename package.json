@@ -1,0 +1,23 @@
+{
+  "name": "cathay-hackathon-2026-teame507",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Team E507 collaboration and demo starter for Cathay Hackathon 2026",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11 <12"
+  },
+  "scripts": {
+    "dev": "node --watch scripts/dev.mjs",
+    "start": "node scripts/dev.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "node scripts/check-syntax.mjs",
+    "test": "node --test",
+    "check": "npm run format:check && npm run lint && npm test"
+  },
+  "devDependencies": {
+    "prettier": "3.10.1"
+  }
+}

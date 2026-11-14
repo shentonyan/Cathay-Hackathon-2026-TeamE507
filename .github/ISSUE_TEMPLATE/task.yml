@@ -1,0 +1,23 @@
+name: Task / 开发任务
+description: 记录集成、文档、实验或演示任务
+title: '[Task] '
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 目标与交付物
+      description: 要完成什么，交付在哪个模块？
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收与验证方法
+      description: 提供验收清单和验证步骤。
+    validations:
+      required: true
+  - type: textarea
+    id: owner
+    attributes:
+      label: 负责人和依赖
+      description: 认领后设置 Issue assignee，并说明依赖与交接。
