@@ -1,0 +1,431 @@
+{
+  "description": "Default model parameters as used by the demo (site/assets/js/joint-model.js defaultParams).",
+  "params": {
+    "horizon": 14,
+    "evalDays": 60,
+    "deferDay": 30,
+    "epsEcon": 0.05,
+    "epsWarn": 0.15,
+    "fuelPrice": 5900,
+    "carbonPriceUSD": 30,
+    "co2PerFuel": 3.16,
+    "carbonCoverage": 1,
+    "carbonIsCash": false,
+    "recovery": {
+      "rate": 0.4,
+      "disassyInspect": 60000,
+      "repair": 0,
+      "logistics": 30000,
+      "txnPct": 0.02
+    },
+    "riskCap": 0.08,
+    "aog": {
+      "hkgHours": 24,
+      "outHours": 72,
+      "rateUSD": 40000,
+      "pHKG": 0.55,
+      "engineRecoveryHK": 1200000
+    },
+    "labour": {
+      "HKG": {
+        "B1": 610,
+        "B2": 680
+      },
+      "BKK": {
+        "B1": 900,
+        "B2": 1000
+      },
+      "SIN": {
+        "B1": 950,
+        "B2": 1050
+      },
+      "otMult": 1.5
+    },
+    "hangarFee": {
+      "HKG": 30000,
+      "BKK": 0,
+      "SIN": 60000
+    },
+    "extensionPerHour": 78000,
+    "maxExtension": 6,
+    "mel": {
+      "dayCost": 25000
+    },
+    "otCapPct": 0.25,
+    "dedicated": {
+      "hours": 48,
+      "rateUSD": 10000,
+      "slot": 150000,
+      "days": [2, 5, 9]
+    },
+    "stations": {
+      "HKG": {
+        "bays": 2,
+        "B1": 600,
+        "B2": 150,
+        "stand": 1,
+        "wash": 2
+      },
+      "BKK": {
+        "bays": 0,
+        "B1": 40,
+        "B2": 16,
+        "stand": 0,
+        "wash": 0
+      },
+      "SIN": {
+        "bays": 1,
+        "B1": 80,
+        "B2": 24,
+        "stand": 0,
+        "wash": 0
+      }
+    },
+    "background": {
+      "HKG": {
+        "1": {
+          "bays": 0,
+          "B1": 260,
+          "B2": 60
+        },
+        "2": {
+          "bays": 0,
+          "B1": 280,
+          "B2": 60
+        },
+        "3": {
+          "bays": 1,
+          "B1": 300,
+          "B2": 70
+        },
+        "4": {
+          "bays": 0,
+          "B1": 260,
+          "B2": 60
+        },
+        "5": {
+          "bays": 0,
+          "B1": 270,
+          "B2": 60
+        },
+        "6": {
+          "bays": 1,
+          "B1": 290,
+          "B2": 70
+        },
+        "7": {
+          "bays": 1,
+          "B1": 300,
+          "B2": 70
+        },
+        "8": {
+          "bays": 0,
+          "B1": 260,
+          "B2": 60
+        },
+        "9": {
+          "bays": 0,
+          "B1": 270,
+          "B2": 60
+        },
+        "10": {
+          "bays": 0,
+          "B1": 260,
+          "B2": 60
+        },
+        "11": {
+          "bays": 0,
+          "B1": 280,
+          "B2": 60
+        },
+        "12": {
+          "bays": 0,
+          "B1": 270,
+          "B2": 60
+        },
+        "13": {
+          "bays": 0,
+          "B1": 260,
+          "B2": 60
+        },
+        "14": {
+          "bays": 0,
+          "B1": 260,
+          "B2": 60
+        }
+      }
+    },
+    "pools": {
+      "GE90-ENG": {
+        "label": "777 備用發動機（GE90-115B）",
+        "stock": {
+          "HKG": 1
+        },
+        "arrivals": [
+          {
+            "day": 9,
+            "station": "HKG",
+            "qty": 1,
+            "note": "返修完成"
+          }
+        ],
+        "lease": {
+          "cost": 2300000,
+          "lead": 5
+        },
+        "transfer": null
+      },
+      "APU-SG": {
+        "label": "APU 起動發電機",
+        "stock": {
+          "SIN": 1
+        },
+        "arrivals": [],
+        "lease": {
+          "cost": 90000,
+          "lead": 1
+        },
+        "transfer": {
+          "lead": 2,
+          "cost": 15000
+        }
+      }
+    }
+  },
+  "param_meta": [
+    {
+      "path": "fuelPrice",
+      "symbol": "p_f",
+      "name": "航油價格",
+      "unit": "HK$/t",
+      "default": 5900,
+      "range": [5900, 8960],
+      "source": "國泰 2025 年報燃油成本 ÷ 消耗量（約 HK$5,900/t）；IATA 2026 估 SAF US$2,872/t 為傳統航油 2.5 倍 ⇒ ≈US$1,149/t"
+    },
+    {
+      "path": "carbonPriceUSD",
+      "symbol": "p_c",
+      "name": "內部碳價",
+      "unit": "US$/t",
+      "default": 30,
+      "range": [0, 95],
+      "source": "CORSIA 一期價格預測（Sylvera）；上限取 EU ETS 2026 年 11 月約 €88/t"
+    },
+    {
+      "path": "co2PerFuel",
+      "symbol": "e",
+      "name": "CO₂ 排放係數",
+      "unit": "t CO₂/t",
+      "default": 3.16,
+      "range": [3.16, 3.16],
+      "source": "ICAO 碳排放計算器方法"
+    },
+    {
+      "path": "carbonCoverage",
+      "symbol": "κ_c",
+      "name": "碳價覆蓋比例",
+      "unit": "",
+      "default": 1,
+      "range": [0, 1],
+      "source": "內部影子碳價取 100%；合規成本按實際受管制排放比例（情景）"
+    },
+    {
+      "path": "recovery.rate",
+      "symbol": "ρ",
+      "name": "拆下零件可回收比例",
+      "unit": "",
+      "default": 0.4,
+      "range": [0, 1],
+      "source": "示例值：綠色時間轉租／作備發使用可回收的剩餘價值比例"
+    },
+    {
+      "path": "recovery.disassyInspect",
+      "symbol": "c_insp",
+      "name": "回收：拆卸與檢測",
+      "unit": "HK$",
+      "default": 60000,
+      "range": [30000, 150000],
+      "source": "示例值：孔探 + 記錄審查"
+    },
+    {
+      "path": "recovery.logistics",
+      "symbol": "c_lg",
+      "name": "回收：物流",
+      "unit": "HK$",
+      "default": 30000,
+      "range": [10000, 80000],
+      "source": "示例值"
+    },
+    {
+      "path": "recovery.txnPct",
+      "symbol": "τ_x",
+      "name": "回收：交易成本",
+      "unit": "",
+      "default": 0.02,
+      "range": [0, 0.05],
+      "source": "示例值：經紀 / 文件費佔回收價值比例"
+    },
+    {
+      "path": "aog.rateUSD",
+      "symbol": "c_AOG",
+      "name": "AOG 每小時成本",
+      "unit": "US$/h",
+      "default": 40000,
+      "range": [10000, 150000],
+      "source": "Boeing 估算 US$10k–150k/h（取決於機型與航線）"
+    },
+    {
+      "path": "aog.hkgHours",
+      "symbol": "h_HKG",
+      "name": "AOG 時長（HKG，件在站）",
+      "unit": "h",
+      "default": 24,
+      "range": [12, 48],
+      "source": "GE90 換發 48 h / 450 工時（Austrian Technik）；最快紀錄 2 h 13 min（GE）"
+    },
+    {
+      "path": "aog.outHours",
+      "symbol": "h_out",
+      "name": "AOG 時長（外站）",
+      "unit": "h",
+      "default": 72,
+      "range": [48, 120],
+      "source": "外站需運送備發與工作組：換發時長 + 運輸（假設）"
+    },
+    {
+      "path": "aog.engineRecoveryHK",
+      "symbol": "c_rec",
+      "name": "外站換發回收成本",
+      "unit": "HK$",
+      "default": 1200000,
+      "range": [600000, 2400000],
+      "source": "運送備發、機組與工具（假設）"
+    },
+    {
+      "path": "aog.pHKG",
+      "symbol": "π",
+      "name": "失效發生在 HKG 的機率",
+      "unit": "",
+      "default": 0.55,
+      "range": [0.4, 0.7],
+      "source": "按 HKG 基地停留時間比例（假設）"
+    },
+    {
+      "path": "pools.GE90-ENG.lease.cost",
+      "symbol": "c_lease",
+      "name": "備用發動機短租／加急",
+      "unit": "HK$",
+      "default": 2300000,
+      "range": [1500000, 3000000],
+      "source": "GE90-115B 長租 US$250k–300k/月；短租按 1 個月起租 + 運輸"
+    },
+    {
+      "path": "pools.GE90-ENG.lease.lead",
+      "symbol": "τ_lease",
+      "name": "短租交付期",
+      "unit": "天",
+      "default": 5,
+      "range": [3, 7],
+      "source": "租賃池調機 + 運輸 + 文件（假設）"
+    },
+    {
+      "path": "labour.HKG.B1",
+      "symbol": "ℓ_B1",
+      "name": "HKG B1 工時費率",
+      "unit": "HK$/h",
+      "default": 610,
+      "range": [450, 800],
+      "source": "大型航司技師工資 US$50–65/h + 30% 附加 ≈ US$78/h（FAA/BTS，Simpson 2025）"
+    },
+    {
+      "path": "labour.otMult",
+      "symbol": "γ",
+      "name": "加班倍數",
+      "unit": "×",
+      "default": 1.5,
+      "range": [1.5, 2],
+      "source": "香港常見加班補償 1.5×（假設）"
+    },
+    {
+      "path": "extensionPerHour",
+      "symbol": "ρ",
+      "name": "計劃停場延長成本",
+      "unit": "HK$/h",
+      "default": 78000,
+      "range": [39000, 156000],
+      "source": "取 Boeing AOG 區間下限 US$10k/h（有預告、可調機）"
+    },
+    {
+      "path": "dedicated.rateUSD",
+      "symbol": "c_ded",
+      "name": "臨時抽調停場每小時",
+      "unit": "US$/h",
+      "default": 10000,
+      "range": [10000, 40000],
+      "source": "同上，有預告的計劃停場"
+    },
+    {
+      "path": "riskCap",
+      "symbol": "P_max",
+      "name": "失效概率上限",
+      "unit": "",
+      "default": 0.08,
+      "range": [0.03, 0.1],
+      "source": "工程安全約束（可靠性方案設定，假設）"
+    },
+    {
+      "path": "epsEcon",
+      "symbol": "ε",
+      "name": "經濟區間容忍度",
+      "unit": "",
+      "default": 0.05,
+      "range": [0.02, 0.1],
+      "source": "修改建議文件：演示初始值 5%"
+    },
+    {
+      "path": "evalDays",
+      "symbol": "E",
+      "name": "評估期",
+      "unit": "天",
+      "default": 60,
+      "range": [30, 90],
+      "source": "覆蓋一個 A 檢週期（假設）"
+    },
+    {
+      "path": "stations.HKG.B1",
+      "symbol": "Cap_B1",
+      "name": "HKG B1 每日工時",
+      "unit": "h",
+      "default": 600,
+      "range": [450, 750],
+      "source": "約 75 名 B1 × 8 h（假設）"
+    },
+    {
+      "path": "stations.HKG.bays",
+      "symbol": "Cap_bay",
+      "name": "HKG 可用機庫位",
+      "unit": "個",
+      "default": 2,
+      "range": [1, 3],
+      "source": "假設"
+    },
+    {
+      "path": "pools.GE90-ENG.stock.HKG",
+      "symbol": "S⁰",
+      "name": "HKG 在站備用發動機",
+      "unit": "台",
+      "default": 1,
+      "range": [0, 2],
+      "source": "假設"
+    },
+    {
+      "path": "pools.GE90-ENG.arrivals.0.day",
+      "symbol": "t_ret",
+      "name": "返修到貨日",
+      "unit": "D+",
+      "default": 9,
+      "range": [5, 13],
+      "source": "假設"
+    }
+  ]
+}

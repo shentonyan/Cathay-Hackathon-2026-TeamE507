@@ -8,6 +8,7 @@ export default [
       '**/build/**',
       '**/coverage/**',
       'data/**',
+      'site/assets/**',
       'outputs/**',
       'artifacts/**',
       'tmp/**',

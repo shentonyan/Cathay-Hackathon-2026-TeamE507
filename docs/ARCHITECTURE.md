@@ -71,3 +71,19 @@ When a feature develops business complexity, introduce `domain/`, `application/`
 - [C4 model](https://c4model.com/diagrams)：参考按读者需要表达系统边界；上图是本地运行示意图。 / Use audience-appropriate system views; the diagram above describes local execution.
 
 这里记录的是团队对资料的适配选择，不表示这些项目对本仓库作出背书。 / These are team adaptations, not endorsements by the referenced projects.
+
+## Demo 站点 / Demo site
+
+`site/` 是独立的静态站点，不属于 npm workspaces。浏览器与 Node 共用同一份算法文件；`scripts/site/engine.mjs` 在 Node 中加载它们，供测试与复现使用。选型见 [ADR 0002](decisions/0002-static-demo-on-github-pages.md)。
+
+`site/` is a standalone static site outside npm workspaces. Browser and Node share the same algorithm files; `scripts/site/engine.mjs` loads them in Node for tests and reproduction. See ADR 0002.
+
+```mermaid
+flowchart LR
+  Site["site/ 静态站点 / Static site"] --> Engine["joint-model.js · rolling-sim.js"]
+  Loader["scripts/site/engine.mjs"] --> Engine
+  Tests["tests/unit · tests/integration"] --> Loader
+  Repro["experiments/joint-scheduler"] --> Loader
+  RUL["experiments/rul-cmapss"] -->|model card| Site
+  Pages["GitHub Pages"] --> Site
+```

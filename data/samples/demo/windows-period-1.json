@@ -1,0 +1,598 @@
+{
+  "description": "Synthetic ground-time windows per aircraft (d = day, st = station, g = hours, kind = night/rest/out/acheck).",
+  "windows": {
+    "DEMO-07": [
+      {
+        "id": "W0",
+        "d": 1,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W1",
+        "d": 3,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "HKG",
+        "g": 30,
+        "kind": "rest"
+      },
+      {
+        "id": "W3",
+        "d": 10,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W4",
+        "d": 13,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-04": [
+      {
+        "id": "W0",
+        "d": 1,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W1",
+        "d": 4,
+        "st": "HKG",
+        "g": 30,
+        "kind": "rest"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 9,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W4",
+        "d": 12,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-13": [
+      {
+        "id": "W0",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W1",
+        "d": 5,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "HKG",
+        "g": 30,
+        "kind": "rest"
+      },
+      {
+        "id": "W3",
+        "d": 9,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W4",
+        "d": 11,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-02": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 4,
+        "st": "SIN",
+        "g": 10,
+        "kind": "out"
+      },
+      {
+        "id": "W3",
+        "d": 6,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 8,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W5",
+        "d": 11,
+        "st": "BKK",
+        "g": 8,
+        "kind": "out"
+      }
+    ],
+    "DEMO-06": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 5,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W3",
+        "d": 8,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 12,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      }
+    ],
+    "DEMO-09": [
+      {
+        "id": "W1",
+        "d": 3,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 9,
+        "st": "SIN",
+        "g": 10,
+        "kind": "out"
+      },
+      {
+        "id": "W4",
+        "d": 14,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-03": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 5,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 7,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W4",
+        "d": 9,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W5",
+        "d": 12,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      }
+    ],
+    "DEMO-11": [
+      {
+        "id": "W1",
+        "d": 3,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 7,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 10,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 13,
+        "st": "SIN",
+        "g": 10,
+        "kind": "out"
+      }
+    ],
+    "DEMO-15": [
+      {
+        "id": "W1",
+        "d": 1,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 4,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 8,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 11,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-21": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 3,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 7,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 10,
+        "st": "SIN",
+        "g": 10,
+        "kind": "out"
+      }
+    ],
+    "DEMO-24": [
+      {
+        "id": "W1",
+        "d": 1,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 5,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W3",
+        "d": 9,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 13,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      }
+    ],
+    "DEMO-27": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 5,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 9,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-31": [
+      {
+        "id": "W1",
+        "d": 3,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 12,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      }
+    ],
+    "DEMO-33": [
+      {
+        "id": "W1",
+        "d": 4,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 8,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 12,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-41": [
+      {
+        "id": "W1",
+        "d": 1,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 3,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 6,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 10,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      }
+    ],
+    "DEMO-44": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "SIN",
+        "g": 10,
+        "kind": "out"
+      },
+      {
+        "id": "W3",
+        "d": 10,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-47": [
+      {
+        "id": "W1",
+        "d": 3,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 7,
+        "st": "BKK",
+        "g": 9,
+        "kind": "out"
+      },
+      {
+        "id": "W3",
+        "d": 11,
+        "st": "HKG",
+        "g": 8,
+        "kind": "night"
+      }
+    ],
+    "DEMO-52": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 3,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 7,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 13,
+        "st": "HKG",
+        "g": 9,
+        "kind": "night"
+      }
+    ],
+    "DEMO-61": [
+      {
+        "id": "W1",
+        "d": 1,
+        "st": "HKG",
+        "g": 7,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 3,
+        "st": "HKG",
+        "g": 7,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 5,
+        "st": "HKG",
+        "g": 7,
+        "kind": "night"
+      },
+      {
+        "id": "W4",
+        "d": 8,
+        "st": "HKG",
+        "g": 36,
+        "kind": "acheck"
+      }
+    ],
+    "DEMO-63": [
+      {
+        "id": "W1",
+        "d": 2,
+        "st": "HKG",
+        "g": 7,
+        "kind": "night"
+      },
+      {
+        "id": "W2",
+        "d": 6,
+        "st": "HKG",
+        "g": 7,
+        "kind": "night"
+      },
+      {
+        "id": "W3",
+        "d": 9,
+        "st": "HKG",
+        "g": 7,
+        "kind": "night"
+      }
+    ]
+  }
+}
