@@ -23,6 +23,14 @@ test('original math is retained, including blackboard indicators and set differe
   assert.match(equations[5].tex, /\\mathbb\{1\}/);
   assert.match(equations[20].tex, /\\setminus/);
   assert.match(equations[20].tex, /\\argmin/);
+  const tokens = (tex) => tex.replaceAll('\\qquad', '').replace(/\s+/g, '');
+  for (const equation of equations) {
+    assert.equal(
+      tokens(splitClauses(equation.tex).join('')),
+      tokens(equation.tex),
+      `Equation ${equation.n} must retain every mathematical token after wrapping`,
+    );
+  }
   assert.deepEqual(splitClauses('a={b\\qquad c},\\qquad d=e'), [
     'a={b\\qquad c},',
     'd=e',
