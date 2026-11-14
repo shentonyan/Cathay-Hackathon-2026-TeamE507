@@ -1,14 +1,17 @@
-# Team E507 repository guidance
+# Team E507 开发约定 / Repository guidance
 
-- Read README.md and docs/ARCHITECTURE.md before changing module boundaries.
-- Keep changes focused on the requested task and preserve other members' work.
-- Document startup, configuration and API changes with the implementation.
-- Use npm ci for a clean setup. Run npm run check before reporting completion.
-- Add checks for new languages and frameworks; the current syntax check covers JavaScript only.
-- Keep main runnable. Use a task branch and a pull request for team changes.
-- Label synthetic data and mock functionality accurately in docs and demos.
-- Keep environment files, credentials, personal information and restricted source material out of commits.
-- Do not deploy resources or invite collaborators unless the user requests it.
+- 修改边界前先读 README 和架构。 / Read README.md and docs/ARCHITECTURE.md before changing boundaries.
+- 聚焦请求并保留队友改动。 / Keep changes focused and preserve teammates' work.
+- 同步契约、配置、启动说明与中英文正文。 / Update contracts, configuration, startup guidance and both documentation languages.
+- 用 npm ci 安装，完成前运行 npm run check。 / Use npm ci and run npm run check before reporting completion.
+- 当前静态规则针对 JavaScript；新语言和框架补相应工具。 / Current static rules cover JavaScript; add tooling for new languages and frameworks.
+- 保持 main 可运行，通过任务分支与 PR 协作。 / Keep main runnable; use task branches and pull requests.
+- 服务只通过公开入口组合，共享包不反向依赖应用。 / Compose services through public entries; shared packages must not depend on applications.
+- 准确标注合成数据、mock 与尚未实现的能力。 / Label synthetic data, mocks and unimplemented capabilities accurately.
+- 不提交环境文件、凭据、个人资料或受限素材。 / Do not commit environment files, credentials, personal data or restricted materials.
+- 未经用户请求，不部署资源或邀请成员。 / Do not deploy resources or invite members unless requested.
+
+以下保留工作区提供的 AWS 原始规则。其要点是先读取匹配的 AWS 技能，以运行证据为准，完整读取错误，并避免暴露密钥。 / The original workspace AWS policy is preserved below: load matching skills first, use runtime evidence, read complete failures and avoid exposing secrets.
 
 <!-- BEGIN AWS Agent Toolkit rules -->
 

@@ -1,5 +1,5 @@
-# Experiments
+# 实验 / Experiments
 
-每个实验建立独立子目录，README 记录：要验证的假设、输入与来源、运行环境、复现命令、结果和限制。
+每个实验使用独立目录，README 记录假设、输入来源、环境、复现命令、结果与限制。 / Give each experiment its own directory and document the hypothesis, input provenance, environment, reproduction command, results and limitations.
 
-仅提交必要代码和小型合成输入；生成结果放在忽略的 `outputs/` 中。有价值的结论另写为文档，成熟实现经审阅后移到正式模块。
+提交必要代码和小型合成输入，生成文件放入忽略的 `outputs/`。成熟功能经审阅后迁入应用或服务；新增实验语言需要自己的检查。 / Commit necessary code and small synthetic inputs; keep generated files in ignored `outputs/`. Move mature features into applications or services after review, and add checks for any new experiment language.

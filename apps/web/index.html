@@ -9,7 +9,7 @@
     />
     <title>Team E507 · Cathay Hackathon 2026</title>
     <link rel="stylesheet" href="/styles.css" />
-    <script src="/app.js" defer></script>
+    <script src="/src/main.js" type="module"></script>
   </head>
   <body>
     <div class="page">
@@ -22,43 +22,59 @@
       <main>
         <p class="eyebrow">TEAM WORKSPACE · 01</p>
         <h1>从一个想法，<br />到一次完整的演示。</h1>
+        <p class="english-title" lang="en">From an idea to a working demo.</p>
         <p class="intro">
-          欢迎来到 Team E507
-          的开发工作区。模板已就绪，让我们一起完成第一个可运行的产品场景。
+          欢迎来到 Team E507 的开发工作区，一起完成第一个产品场景。<br />
+          <span lang="en"
+            >Welcome to the team workspace. Build the first complete user
+            journey together.</span
+          >
         </p>
         <div class="actions">
           <button id="health-check" type="button">
-            检查开发环境 <span aria-hidden="true">↗</span>
+            检查环境 / Check setup <span aria-hidden="true">↗</span>
           </button>
           <a
             class="repo-link"
             href="https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507"
-            >打开团队仓库 →</a
+            >团队仓库 / Repository →</a
           >
         </div>
         <p id="health-status" class="status" role="status" aria-live="polite">
-          启动后，检查本地预览服务是否可用。
+          检查本地预览服务 / Check the local preview service.
         </p>
         <section class="steps" aria-label="下一步">
           <article>
             <span class="number">01 / DISCOVER</span>
             <h2>确定核心问题</h2>
-            <p>选定一个用户场景，写出具体的验收标准。</p>
+            <p>
+              选定用户场景和验收标准。<br /><span lang="en"
+                >Choose a user journey and acceptance criteria.</span
+              >
+            </p>
           </article>
           <article>
             <span class="number">02 / BUILD</span>
             <h2>跑通完整流程</h2>
-            <p>从页面到接口，完成最小可演示闭环。</p>
+            <p>
+              从页面到接口，完成演示闭环。<br /><span lang="en"
+                >Connect the interface and API into a working flow.</span
+              >
+            </p>
           </article>
           <article>
             <span class="number">03 / DEMO</span>
             <h2>让结果可复现</h2>
-            <p>准备样例数据、演示脚本与备用方案。</p>
+            <p>
+              准备样例、脚本与备用方案。<br /><span lang="en"
+                >Prepare samples, a demo script and a fallback.</span
+              >
+            </p>
           </article>
         </section>
       </main>
       <footer>
-        <span>TEAM E507</span><span>开发占位页 · 业务功能待实现</span>
+        <span>TEAM E507</span><span>开发占位页 · Starter preview</span>
       </footer>
     </div>
   </body>

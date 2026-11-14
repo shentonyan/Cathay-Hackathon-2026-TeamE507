@@ -1,0 +1,8 @@
+{
+  "name": "@e507/api",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.mjs",
+  "description": "API composition and feature modules / API 组合与功能模块"
+}

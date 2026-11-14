@@ -1,31 +1,31 @@
 name: Feature / 功能
-description: 提出一个可验收的功能
+description: 提出可验收的功能 / Propose an actionable feature
 title: '[Feature] '
 body:
   - type: textarea
     id: goal
     attributes:
-      label: 用户与问题
-      description: 谁遇到了什么问题？本次功能服务哪条演示路径？
+      label: 用户与问题 / User and problem
+      description: 谁遇到什么问题，对应哪条演示路径？ / Who faces which problem, and which demo journey does it support?
     validations:
       required: true
   - type: textarea
     id: scope
     attributes:
-      label: 实现范围
-      description: 描述页面、接口、数据和 mock 边界。
+      label: 实现范围 / Scope
+      description: 描述页面、接口、数据和 mock 边界。 / Describe UI, API, data and mock boundaries.
     validations:
       required: true
   - type: textarea
     id: acceptance
     attributes:
-      label: 验收标准
-      description: 用可测试的结果描述何时算完成。
-      placeholder: '- [ ] 给定样例输入，用户能完成……'
+      label: 验收标准 / Acceptance criteria
+      description: 用可测试的结果定义完成。 / Define completion with testable outcomes.
+      placeholder: '- [ ] 给定输入，用户能完成…… / Given an input, the user can…'
     validations:
       required: true
   - type: textarea
     id: coordination
     attributes:
-      label: 分工与依赖
-      description: 负责人、涉及模块、依赖任务和预期完成时间。
+      label: 分工与依赖 / Ownership and dependencies
+      description: 负责人、模块、依赖和时间。 / Owner, modules, dependencies and timing.

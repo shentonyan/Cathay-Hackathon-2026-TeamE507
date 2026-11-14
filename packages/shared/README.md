@@ -1,5 +1,5 @@
-# Shared
+# 共享逻辑 / Shared logic
 
-存放真正跨模块复用的类型、校验规则和纯函数。出现实际复用需求后再提取，避免提前堆积工具。
+此目录保留给已经出现实际复用的纯逻辑。尚未注册为 workspace 包；首次添加代码时补齐私有 `package.json`、公开导出和测试。 / Reserve this directory for pure logic with demonstrated reuse. It is not yet a workspace package; add a private manifest, public exports and tests when adding code.
 
-新增包时说明导出接口、依赖方向和测试方式；不要在共享模块中读取服务私有配置。
+共享包不依赖应用实现，也不读取服务私有配置；HTTP 数据结构放在 `packages/contracts/`。 / Shared packages must not depend on applications or read service-private configuration; HTTP structures belong in `packages/contracts/`.

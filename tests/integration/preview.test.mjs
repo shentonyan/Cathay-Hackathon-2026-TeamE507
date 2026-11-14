@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { after, before, test } from 'node:test';
-import { createPreviewServer } from '../scripts/dev.mjs';
+import { createPreviewServer } from '../../scripts/preview/server.mjs';
 
 let server;
 let baseUrl;
@@ -28,12 +28,15 @@ test('the preview page and referenced assets are available', async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Team E507/);
-  for (const asset of ['/styles.css', '/app.js']) {
+  for (const asset of ['/styles.css', '/src/main.js']) {
     assert.ok(html.includes(asset));
     const resource = await fetch(`${baseUrl}${asset}`);
     assert.equal(resource.status, 200);
     assert.ok((await resource.text()).length > 0);
   }
+  const feature = await fetch(`${baseUrl}/src/features/health/check-health.js`);
+  assert.equal(feature.status, 200);
+  assert.match(await feature.text(), /export async function checkHealth/);
 });
 
 test('the development health endpoint has the documented contract', async () => {
