@@ -1,5 +1,5 @@
-# Deployment
+# 部署配置 / Infrastructure
 
-部署配置预留目录。当前模板仅在本地运行，没有创建任何云资源。
+当前仅预留目录，没有部署配置或已创建的云资源。 / This is a reserved directory; no deployment configuration or cloud resource has been created.
 
-确定部署目标后，添加可审阅的配置与说明，包括环境差异、部署、验证、费用预估、回滚和清理步骤。不要将本地预览服务器直接作为生产服务。
+选择部署目标后添加可审阅配置，说明创建、验证、成本、回滚与清理，并更新 [运行手册 / Operations](../docs/OPERATIONS.md) 和 ADR。 / Once a deployment target is chosen, add reviewable configuration covering creation, validation, costs, rollback and cleanup, and update the operations guide and ADR.

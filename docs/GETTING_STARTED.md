@@ -1,12 +1,12 @@
-# 新人上手
+# 新人上手 / Getting started
 
-## 获取权限
+## 获取权限 / Access
 
-接受仓库所有者发出的 GitHub 邀请，再克隆私有仓库。权限不足时先确认登录的是接受邀请的账号。
+接受仓库邀请后克隆，确认当前 GitHub 账号与接受邀请的账号一致。 / Accept the repository invitation before cloning; use the same GitHub account.
 
-## 本地启动
+## 安装与启动 / Install and start
 
-使用 Node.js 24 和 npm 11。执行以下命令：
+使用 Git、Node.js 24 和 npm 11。 / Use Git, Node.js 24 and npm 11.
 
 ```sh
 git clone https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507.git
@@ -15,27 +15,31 @@ npm ci
 npm run dev
 ```
 
-打开 <http://127.0.0.1:3000>，点击「检查开发环境」，预期显示连接成功。`/api/health` 是开发预览端点，不是业务 API。
+打开 <http://127.0.0.1:3000>，点击 **检查环境 / Check setup**；预期看到连接成功。根目录执行一次 `npm ci` 即可安装工具和链接 workspace 包。
 
-若端口已占用，复制 `.env.example` 为 `.env`，设置 `PORT=3001` 后重启。修改环境文件后需要重新启动进程。
+Open <http://127.0.0.1:3000> and select **Check setup**; expect a successful connection. One root-level `npm ci` installs tools and links workspace packages.
 
-`npm run dev` 在服务器代码变化时重启；前端 HTML、CSS、JavaScript 修改后刷新浏览器即可。
+## 本地配置 / Local configuration
 
-## 第一项贡献
+默认无需环境文件。需要改端口时复制 `.env.example` 为 `.env`，设置 `PORT=3001` 后重启。前端文件修改后刷新浏览器；修改服务或预览代码时 watch 模式会重启。
 
-1. 阅读 [路线](ROADMAP.md) 和 [架构](ARCHITECTURE.md)，认领 Issue。
-2. 按 [贡献指南](../CONTRIBUTING.md) 创建任务分支。
-3. 完成一项小改动，执行 `npm run check`。
-4. 提交 PR，写出队友可以重复执行的验证步骤。
+No environment file is required by default. To change the port, copy `.env.example` to `.env`, set `PORT=3001` and restart. Refresh after frontend edits; watch mode restarts after service or preview code changes.
 
-## 常见问题
+## 第一项贡献 / First contribution
 
-| 现象                        | 处理方式                                                          |
-| --------------------------- | ----------------------------------------------------------------- |
-| PowerShell 提示禁止运行脚本 | 使用 `npm.cmd ci`、`npm.cmd run dev`，无需更改系统执行策略        |
-| `Unsupported engine`        | 检查 `node --version` 和 `npm --version`，切到 Node.js 24         |
-| `EADDRINUSE`                | 在 `.env` 改用空闲端口，或关闭原来的预览进程                      |
-| `npm ci` 提示锁文件不匹配   | 获取最新代码；只有明确修改依赖时才运行 `npm install` 并提交锁文件 |
-| 格式检查未通过              | 执行 `npm run format`，查看改动后再次运行 `npm run check`         |
+1. 阅读 [架构 / Architecture](ARCHITECTURE.md) 和 [路线 / Roadmap](ROADMAP.md)，认领 Issue。 / Read the guides and claim an Issue.
+2. 按 [贡献指南 / Contributing](../CONTRIBUTING.md) 创建任务分支。 / Create a task branch.
+3. 执行 `npm run check`，打开 PR 并给出复现步骤。 / Run checks and open a PR with repeatable verification steps.
 
-Python、数据库、云服务和业务凭据均不是启动当前模板的前提。新增模块后在对应目录补齐安装和验证方式。
+## 常见问题 / Troubleshooting
+
+| 现象 / Symptom                         | 处理 / Action                                                                                                |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| PowerShell 禁止脚本 / Script blocked   | 使用 `npm.cmd`，无需修改系统策略 / Use `npm.cmd` without changing system policy                              |
+| `Unsupported engine`                   | 检查并切换到 Node.js 24 / Check and switch to Node.js 24                                                     |
+| `EADDRINUSE`                           | 更改 `.env` 的端口并重启 / Change the port in `.env` and restart                                             |
+| workspace 包找不到 / Package not found | 在仓库根目录运行 `npm ci` / Run `npm ci` at the repository root                                              |
+| 锁文件不匹配 / Lockfile mismatch       | 同步最新代码；仅修改依赖时用 `npm install` / Sync code; use `npm install` for intentional dependency changes |
+| 格式失败 / Format failure              | 运行 `npm run format` 并查看差异 / Run the formatter and review the diff                                     |
+
+新增语言或框架时，应补齐其依赖锁定、启动文档、检查与 CI。 / Add dependency locks, setup documentation, checks and CI when introducing another language or framework.

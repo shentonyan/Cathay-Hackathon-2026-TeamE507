@@ -1,27 +1,31 @@
-# 团队协作约定
+# 团队协作 / Team collaboration
 
-## 分工登记
+## 分工 / Ownership
 
-成员加入后填写 GitHub 用户名和实际职责，不预先指定他人负责。
+加入后填写实际成员，Issue 的负责人优先于角色表。 / Fill in actual members after joining; Issue ownership takes precedence over this role table.
 
-| 角色       | GitHub 用户名 | 负责范围            |
-| ---------- | ------------- | ------------------- |
-| 仓库维护   | `@shentonyan` | 邀请成员、仓库设置  |
-| 产品与演示 | 待认领        | MVP、验收、演示脚本 |
-| 前端       | 待认领        | 页面与交互          |
-| 后端与集成 | 待认领        | 业务接口与外部服务  |
-| 数据与算法 | 待认领        | 合成数据、算法验证  |
+| 角色 / Role                      | GitHub              | 范围 / Scope                                 |
+| -------------------------------- | ------------------- | -------------------------------------------- |
+| 仓库维护 / Maintainer            | `@shentonyan`       | 邀请与设置 / Access and settings             |
+| 产品与演示 / Product and demo    | 待认领 / Unassigned | MVP 与验收 / MVP and acceptance              |
+| 前端 / Frontend                  | 待认领 / Unassigned | 页面与交互 / UI and interaction              |
+| API 与集成 / API and integration | 待认领 / Unassigned | 接口和外部服务 / Interfaces and integrations |
+| 数据与算法 / Data and algorithms | 待认领 / Unassigned | 样例与验证 / Samples and validation          |
 
-一人可以承担多个角色。Issue 的负责人比此表更具体，开发前先认领。
+`CODEOWNERS` 当前仅将仓库维护者设为默认审阅联系人，成员确认后再增加模块负责人；它不会自动授予权限或强制批准。
 
-## 工作节奏
+`CODEOWNERS` currently names the maintainer as the default review contact. Add module owners after membership is confirmed; the file neither grants access nor enforces approval by itself.
 
-用 Issue 管理任务，用 PR 讨论代码；口头确认的重要接口和决策同步写进仓库。交接时说明已完成、卡点、下一步与如何验证。
+## 工作节奏 / Working rhythm
 
-优先提交能独立审阅的小改动。共享文件或接口需要同时修改时，先在对应 Issue 中协调。演示前约定冻结时间，临时修复单独开分支并重新验证演示路径。
+用 Issue 管任务，用 PR 讨论代码，重要接口和决策写入文档。交接写清完成内容、卡点、下一步和验证步骤。共享文件同时改动前先协调；演示前约定冻结时间。
 
-## 仓库设置
+Track tasks in Issues, discuss code in PRs and document important interfaces and decisions. Handoffs should cover completed work, blockers, next steps and verification. Coordinate shared-file changes and agree on a demo freeze.
 
-默认分支为 `main`，优先 Squash merge，合并后自动删除任务分支。分支保护建议：要求 PR、至少一位队友批准、`Checks` 检查通过，并阻止强制推送和删除 `main`。这些规则需要在 GitHub 设置中单独启用，是否可用取决于账户计划。
+## 仓库规则 / Repository rules
 
-GitHub 邀请由仓库所有者在 Settings → Collaborators 完成；本模板不会自动邀请或指定其他成员。
+优先任务分支和 Squash merge，合并后自动删除任务分支。建议在账户计划支持时为 `main` 配置 PR、队友批准、必需 CI、禁止强推和删除。当前 CI 检查显示为 `Checks (ubuntu-latest)` 与 `Checks (windows-latest)`；它们成为必需检查前需要单独配置。
+
+Use task branches and squash merging; merged branches are deleted automatically. Where the account plan allows, protect `main` with PR review, required CI, and restrictions on force pushes and deletion. The current checks are `Checks (ubuntu-latest)` and `Checks (windows-latest)`; making them required needs separate configuration.
+
+队友邀请由维护者在 [成员设置 / Collaborators](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/settings/access) 完成。 / The maintainer invites teammates in repository settings.

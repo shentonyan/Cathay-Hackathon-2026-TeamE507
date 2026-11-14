@@ -1,23 +1,23 @@
 name: Bug report / 缺陷
-description: 报告可复现的问题
+description: 报告可复现的问题 / Report a reproducible defect
 title: '[Bug] '
 body:
   - type: textarea
     id: problem
     attributes:
-      label: 问题与影响
-      description: 在什么场景发生？期望与实际行为分别是什么？
+      label: 问题与影响 / Problem and impact
+      description: 说明场景、期望与实际行为。 / Describe the context, expected and actual behavior.
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: 复现步骤
-      description: 提供操作、样例输入和出现问题的版本；不要粘贴凭据或个人信息。
+      label: 复现步骤 / Reproduction steps
+      description: 提供步骤、输入和版本，不含敏感信息。 / Include steps, inputs and version without sensitive information.
     validations:
       required: true
   - type: textarea
     id: environment
     attributes:
-      label: 环境与补充证据
-      description: 操作系统、运行版本、浏览器、脱敏日志或截图。
+      label: 环境与证据 / Environment and evidence
+      description: 系统、运行环境、浏览器与脱敏证据。 / OS, runtime, browser and sanitized logs or screenshots.

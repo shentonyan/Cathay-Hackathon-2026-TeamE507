@@ -1,0 +1,10 @@
+{
+  "name": "@e507/contracts",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./openapi": "./openapi.json"
+  },
+  "description": "Language-neutral HTTP contracts / 跨语言 HTTP 契约"
+}

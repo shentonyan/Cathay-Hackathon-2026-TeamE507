@@ -175,3 +175,12 @@ footer {
     gap: 3px;
   }
 }
+
+.english-title {
+  color: #a6dfc7;
+  font-size: 20px;
+  margin: 16px 0 0;
+}
+[lang='en'] {
+  font-size: 0.9em;
+}

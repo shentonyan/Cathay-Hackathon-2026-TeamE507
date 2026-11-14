@@ -1,5 +1,7 @@
-# Business API
+# API 服务 / API service
 
-业务服务预留目录，尚未实现。当前 `/api/health` 来自根目录的本地预览工具。
+`@e507/api` 的公开入口是 `src/index.mjs`，当前只组合 `modules/health/`。根目录本地预览通过这个入口提供 HTTP 服务。 / The public entry of `@e507/api` is `src/index.mjs`, which currently composes only `modules/health/`. The root preview serves it over HTTP.
 
-添加服务时说明：运行环境、安装与启动命令、环境变量名称、接口契约、错误格式和测试命令。优先与前端约定一条完整演示路径，再扩大功能。将服务检查加入根目录 CI。
+业务功能放在 `src/modules/<feature>/`，必要时再分为领域、用例与适配器。前端和外部组合代码不能导入模块内部文件。 / Place business features under `src/modules/<feature>/`, introducing domain, use-case and adapter layers when needed. Frontend and external composition code must not import module internals.
+
+接口变更同步 [契约 / Contract](../../packages/contracts/openapi.json)、[API 指南 / API guide](../../docs/API.md) 与测试。当前没有业务认证、数据库或云服务。 / Keep the contract, API guide and tests aligned. Business authentication, persistence and cloud services are not implemented.

@@ -1,0 +1,49 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Team E507 Development API / 开发接口",
+    "version": "0.2.0",
+    "description": "Local development health only; business APIs are pending. / 仅包含本地开发健康检查，业务接口待实现。"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Development health / 开发环境健康检查",
+        "responses": {
+          "200": {
+            "description": "Preview is running / 预览服务正在运行",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" },
+                "example": { "status": "ok", "service": "teame507-preview" }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "operationId": "headHealth",
+        "summary": "Health headers only / 仅返回健康检查响应头",
+        "responses": {
+          "200": {
+            "description": "Preview is running, no body / 预览运行中，无响应正文"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "service"],
+        "properties": {
+          "status": { "type": "string", "const": "ok" },
+          "service": { "type": "string", "const": "teame507-preview" }
+        }
+      }
+    }
+  }
+}

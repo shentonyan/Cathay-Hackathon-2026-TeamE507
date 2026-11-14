@@ -1,7 +1,11 @@
-# 安全说明
+# 安全说明 / Security
 
-发现泄露的凭据、个人资料或可利用的漏洞，请通过团队私下联系渠道通知仓库所有者 `@shentonyan`。不要在公开 Issue 或 PR 中贴出敏感值；说明受影响模块和可安全共享的复现步骤即可。
+发现凭据泄露、个人资料或可利用的漏洞，请通过团队私下渠道通知仓库维护者 `@shentonyan`。提供受影响版本和可安全共享的复现步骤；不要把敏感值贴入公开 Issue 或 PR。
 
-凭据若已提交，应先撤销或轮换，再清理文件和必要的历史记录。仅删除最新版本中的文件无法撤销已经暴露的凭据。
+Report exposed credentials, personal information or exploitable vulnerabilities privately to maintainer `@shentonyan` through the team's private channel. Include the affected version and safe reproduction steps; do not paste sensitive values into public Issues or PRs.
 
-本仓库是黑客松开发模板；本地预览服务仅绑定 `127.0.0.1`。部署实际产品前，按业务需要实现身份验证、权限检查、输入校验、访问限制和日志脱敏。
+凭据若已提交，先撤销或轮换，再清理文件与必要的历史记录。仅删除最新文件无法撤销已经泄露的值。 / Revoke or rotate committed credentials before cleaning files and, when needed, history. Deleting a current file does not invalidate an exposed credential.
+
+预览服务只监听本机地址并仅提供登记的静态资源。对外部署前需要根据业务补齐身份验证、权限控制、输入校验、日志脱敏与运行保障。当前健康检查只证明预览进程能够响应。
+
+The preview binds to loopback and serves only registered assets. External deployment requires appropriate authentication, authorization, input validation, safe logging and operational controls. The current health check only demonstrates preview responsiveness.
