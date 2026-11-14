@@ -1,0 +1,49 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'scripts/site/**'
+      - 'tests/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Verify and deploy demo / 验证并部署 Demo
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout / 获取代码
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Node.js / 配置运行环境
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - name: Verify site and algorithms / 验证站点与算法
+        run: node --test tests/integration/site.test.mjs tests/unit/scheduler.test.mjs
+      - name: Configure Pages / 配置 Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site / 上传站点
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Deploy / 部署
+        id: deployment
+        uses: actions/deploy-pages@v4

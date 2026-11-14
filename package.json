@@ -2,7 +2,7 @@
   "name": "cathay-hackathon-2026-teame507",
   "version": "0.2.0",
   "private": true,
-  "description": "Team E507 collaboration and demo starter for Cathay Hackathon 2026",
+  "description": "Team E507 · Cathay Hackathon 2026 — Cathay AaaS: cost-of-waiting joint maintenance scheduling, RUL prediction and digital twin demo",
   "type": "module",
   "workspaces": [
     "apps/*",
@@ -16,6 +16,8 @@
   "scripts": {
     "dev": "node --watch scripts/dev.mjs",
     "start": "node scripts/dev.mjs",
+    "site": "node scripts/site/serve.mjs",
+    "reproduce:schedule": "node experiments/joint-scheduler/reproduce.mjs --check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",

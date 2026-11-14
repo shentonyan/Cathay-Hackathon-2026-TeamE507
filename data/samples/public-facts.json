@@ -1,0 +1,114 @@
+{
+  "description": "Public figures used by the demo. status: verified = checked against the cited document in this project; derived = computed from verified figures; team-verified = checked by team members (v10).",
+  "facts": [
+    {
+      "name": "Cathay Pacific fleet (company)",
+      "value": 179,
+      "unit": "aircraft",
+      "as_of": "2026-06-30",
+      "source": "Cathay Pacific 2026 Interim Results announcement (HKEX, 2026-08-05), fleet table",
+      "status": "verified"
+    },
+    {
+      "name": "Fleet mix",
+      "value": {
+        "A321neo": 16,
+        "A330-300": 43,
+        "A350-900": 30,
+        "A350-1000": 18,
+        "777-300": 17,
+        "777-300ER": 35,
+        "747-400ERF": 6,
+        "747-8F": 14
+      },
+      "unit": "aircraft",
+      "source": "same as above",
+      "status": "verified"
+    },
+    {
+      "name": "Aircraft utilisation",
+      "value": 11.3,
+      "unit": "hours/day",
+      "year": 2025,
+      "source": "Cathay Pacific Annual Report 2025, operating statistics",
+      "status": "verified"
+    },
+    {
+      "name": "Revenue tonne-km (company)",
+      "value": 20461,
+      "unit": "million RTK",
+      "year": 2025,
+      "source": "Cathay Pacific Annual Report 2025",
+      "status": "verified"
+    },
+    {
+      "name": "GHG emissions (company)",
+      "value": 15.3,
+      "unit": "million t CO2e",
+      "year": 2025,
+      "source": "Cathay Pacific Annual Report 2025",
+      "status": "verified"
+    },
+    {
+      "name": "Net carbon intensity (group)",
+      "value": {
+        "2019": 761,
+        "2025": 746,
+        "2030_target": 670
+      },
+      "unit": "g CO2e / RTK",
+      "source": "Cathay Pacific Annual Report 2025, sustainability section (pp. 31-32)",
+      "status": "verified"
+    },
+    {
+      "name": "SAF share of jet fuel (group)",
+      "value": {
+        "2025": 0.68,
+        "2030_target": 10
+      },
+      "unit": "%",
+      "source": "Cathay Pacific Annual Report 2025",
+      "status": "verified"
+    },
+    {
+      "name": "Aircraft maintenance cost (company)",
+      "value": 8508,
+      "unit": "HK$ million",
+      "year": 2025,
+      "source": "Cathay Pacific Annual Report 2025, operating costs",
+      "status": "verified"
+    },
+    {
+      "name": "Fuel cost incl. hedging (company)",
+      "value": 28715,
+      "unit": "HK$ million",
+      "year": 2025,
+      "source": "Cathay Pacific Annual Report 2025, operating costs",
+      "status": "verified"
+    },
+    {
+      "name": "Revenue tonne-km (group)",
+      "value": 22266,
+      "unit": "million RTK",
+      "year": 2025,
+      "source": "Cathay Pacific Sustainability Report 2025, p.148",
+      "status": "team-verified"
+    },
+    {
+      "name": "Fuel burn (company)",
+      "value": 4841772,
+      "unit": "t",
+      "year": 2025,
+      "source": "GHG / 3.16 t CO2 per t fuel (ICAO)",
+      "status": "derived"
+    },
+    {
+      "name": "Average fuel price",
+      "value": 5931,
+      "unit": "HK$/t",
+      "year": 2025,
+      "source": "fuel cost / derived fuel burn",
+      "status": "derived"
+    }
+  ]
+}

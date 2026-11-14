@@ -12,3 +12,5 @@ tmp/
 temp/
 .env
 .env.*
+# 生成或第三方的站点文件 / Generated or vendored site files
+site/

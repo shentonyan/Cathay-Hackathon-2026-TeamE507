@@ -1,0 +1,422 @@
+{
+  "description": "Solved plans for period 1: current practice (baseline) vs joint decision; per-job-optimum shown for its constraint violations.",
+  "baseline": {
+    "total": 7300276.672064205,
+    "co2": 924.3849724000002,
+    "fuelT": 292.52689000000004,
+    "comps": {
+      "aog": 851054.4975226041,
+      "fuel": 1725908.651,
+      "carbon": 216306.08354160003,
+      "life": 857507.4400000001,
+      "exec": 3649500
+    },
+    "viol": []
+  },
+  "joint": {
+    "total": 6591422.162366016,
+    "co2": 604.0850655999999,
+    "fuelT": 191.16615999999996,
+    "comps": {
+      "aog": 52843.99301561501,
+      "fuel": 1127880.344,
+      "carbon": 141355.9053504,
+      "life": 1119401.92,
+      "exec": 4149940
+    },
+    "viol": [],
+    "riskMax": 0.0029993063508507722
+  },
+  "per_job_optimum": {
+    "total": 4368045.350926815,
+    "co2": 576.3009868,
+    "viol": [
+      "HKG D+2 水洗設備不足",
+      "HKG D+1 水洗設備不足",
+      "HKG D+3 機庫位不足（3/2）",
+      "777 備用發動機（GE90-115B）：HKG D+6 庫存不足",
+      "777 備用發動機（GE90-115B）：HKG D+13 庫存不足",
+      "APU 起動發電機：HKG D+2 庫存不足"
+    ]
+  },
+  "plan": [
+    {
+      "id": "R1",
+      "reg": "DEMO-07",
+      "name": "2 號發動機更換",
+      "baseline": {
+        "day": 13,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "stock"
+      },
+      "joint": {
+        "day": 13,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "stock",
+        "pFail": 0.0029993063508507722
+      }
+    },
+    {
+      "id": "R2",
+      "reg": "DEMO-04",
+      "name": "1 號發動機更換",
+      "baseline": {
+        "day": 12,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "lease"
+      },
+      "joint": {
+        "day": 4,
+        "kind": "rest",
+        "station": "HKG",
+        "spare": "stock",
+        "pFail": 2.247620750628343e-7
+      }
+    },
+    {
+      "id": "R3",
+      "reg": "DEMO-13",
+      "name": "2 號發動機更換",
+      "baseline": {
+        "day": 6,
+        "kind": "rest",
+        "station": "HKG",
+        "spare": "stock"
+      },
+      "joint": {
+        "day": 6,
+        "kind": "rest",
+        "station": "HKG",
+        "spare": "lease",
+        "pFail": 0.0002112720299503601
+      }
+    },
+    {
+      "id": "R4",
+      "reg": "DEMO-02",
+      "name": "輔助動力裝置起動發電機更換",
+      "baseline": {
+        "day": 2,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "transfer"
+      },
+      "joint": {
+        "day": 2,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "transfer",
+        "pFail": 0.000232673384069626
+      }
+    },
+    {
+      "id": "P1",
+      "reg": "DEMO-07",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 13,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 1,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P2",
+      "reg": "DEMO-06",
+      "name": "左側引氣管路漏氣修復",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 2,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P3",
+      "reg": "DEMO-09",
+      "name": "襟翼端密封與副翼間隙修復",
+      "baseline": {
+        "day": 14,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 14,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P4",
+      "reg": "DEMO-03",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 5,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P5",
+      "reg": "DEMO-11",
+      "name": "縫翼收起不到位與擾流板翹起修復",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P6",
+      "reg": "DEMO-15",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 11,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 4,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P7",
+      "reg": "DEMO-21",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 3,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P8",
+      "reg": "DEMO-24",
+      "name": "右側引氣管路漏氣修復",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 1,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P9",
+      "reg": "DEMO-27",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 9,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 2,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P10",
+      "reg": "DEMO-31",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 3,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P11",
+      "reg": "DEMO-33",
+      "name": "貨艙門密封條更換",
+      "baseline": {
+        "day": 12,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 12,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P12",
+      "reg": "DEMO-41",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 1,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P13",
+      "reg": "DEMO-44",
+      "name": "襟翼滑軌整流罩修復",
+      "baseline": {
+        "day": 10,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 10,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P14",
+      "reg": "DEMO-47",
+      "name": "左側引氣管路漏氣修復",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 3,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P15",
+      "reg": "DEMO-52",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 2,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P16",
+      "reg": "DEMO-61",
+      "name": "發動機清洗（雙發）",
+      "baseline": {
+        "day": 8,
+        "kind": "acheck",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 5,
+        "kind": "night",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    },
+    {
+      "id": "P17",
+      "reg": "DEMO-63",
+      "name": "機翼前緣密封修復",
+      "baseline": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none"
+      },
+      "joint": {
+        "day": 30,
+        "kind": "defer",
+        "station": "HKG",
+        "spare": "none",
+        "pFail": 0
+      }
+    }
+  ]
+}

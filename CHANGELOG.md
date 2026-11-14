@@ -2,7 +2,14 @@
 
 ## Unreleased / 待发布
 
-在这里记录下一版本可感知的变化与限制。 / Record user-visible changes and limitations for the next version here.
+### Cathay AaaS Demo v14
+
+- 发布 Demo 静态站点并经 GitHub Pages 部署。 / Publish the demo as a static site deployed to GitHub Pages.
+- 加入联合排程引擎、全年 26 期滚动模拟、数字孪生、工作包与降本减碳页面。 / Add the joint scheduling engine, rolling-year simulation, digital twin, work packs and cost-and-carbon view.
+- 加入剩余寿命实验：MLP 集成 + 交叉共形区间，FD001 测试 RMSE 10.65。 / Add the RUL experiment (test RMSE 10.65 on FD001).
+- 加入数据卡、数学模型文档、复现指南与 ADR 0002。 / Add the data card, model document, reproduction guide and ADR 0002.
+- 加入排程单元测试与站点集成测试。 / Add scheduler unit tests and site integration tests.
+- 限制：运营数据为合成；推广情景须试点验证；登录、订阅与助手为本地模拟。 / Limitations: synthetic operations, roll-out scenarios need validation, sign-in and assistant are mocks.
 
 ## 0.2.0 - 2026-11-14
 

@@ -1,0 +1,18 @@
+{
+  "dataset": "NASA C-MAPSS FD001（模擬數據，100 台訓練、100 台測試）",
+  "algorithm": "MLP ensemble (15 = 5 folds x 3 seeds) + binned cross-conformal 90% intervals",
+  "features": "71 = EWM alpha [0.03, 0.08, 0.2] x 14 sensors + slopes [20, 60] x 14 + cycle",
+  "test_rmse_cycles": 10.65,
+  "nasa_score": 200,
+  "picp_90": 88.0,
+  "picp_90_near_failure": 92.0,
+  "n_near_failure": 25,
+  "mean_width_cycles": 27.8,
+  "cv_rmse": 9.39,
+  "halfwidth_by_bin": {
+    "0-29": 5.8,
+    "30-59": 9.0,
+    "60-89": 19.2,
+    "90-125": 18.0
+  }
+}
