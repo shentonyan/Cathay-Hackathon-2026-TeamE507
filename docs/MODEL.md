@@ -20,7 +20,7 @@ Period 1 has 21 jobs, each with several options (window × spare source, or defe
 
 ## 公式 / Formulas
 
-公式与 Demo「模型」页同源（[model_spec.py](../scripts/site/model_spec.py)），说明沿用 Demo 的繁体中文。GitHub 以 MathJax 显示；公式块与符号表采用 GitHub 支持的数学定界语法，避免 Markdown 转义改写 TeX。Demo 内为预先排版的向量图。 / Formulas share one source with the demo's model page; descriptions keep the demo's Traditional Chinese. GitHub renders them with MathJax; its supported math fences and protected inline delimiters keep Markdown from altering TeX. The demo ships pre-typeset vector graphics.
+公式与 Demo「模型」页同源（[model_spec.py](../scripts/site/model_spec.py)），说明沿用 Demo 的繁体中文。公式块与符号表采用 GitHub 支持的数学定界语法，避免 Markdown 转义改写 TeX；编号放在公式标题中。Demo 内为预先排版的独立 SVG。 / Formulas share one source with the demo's model page; descriptions keep the demo's Traditional Chinese. GitHub's math fences and protected inline delimiters keep Markdown from altering TeX; equation numbers appear in the headings. The demo ships self-contained SVGs.
 
 ### A · 預測：剩餘壽命與退化
 

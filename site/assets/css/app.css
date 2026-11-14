@@ -1024,3 +1024,25 @@ i.rest{background:repeating-linear-gradient(135deg,#e7eeed 0 4px,#d6e1df 4px 8px
 
 .g-stats b{font-size:34px}
 .g-src{margin-top:12px;font-size:12px;color:rgba(255,255,255,.55)}
+
+/* Model equations keep their reading size; long lines scroll inside the formula. */
+.eqr{display:block;min-width:0;padding:22px 0;border-bottom:1px solid var(--line)}
+.eqhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:12px}
+.eqh{font-size:15px;line-height:1.5;font-weight:600;margin:0;min-width:0}
+.eqn{flex:none;font-size:17px;line-height:1.5}
+.eqf{display:flex;flex-direction:column;gap:18px;max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;padding:20px 18px;background:#f2f7f6;border:1px solid #dce9e5;border-radius:12px;color:var(--ink);font-size:20px;scrollbar-width:thin;scrollbar-color:#82aaa0 #e7efec;overscroll-behavior-x:contain}
+.eqline{width:max-content;min-width:0;flex:none;padding:3px 0}
+.eqf svg{display:block;max-width:none;flex:none;overflow:visible}
+.eqdesc{margin-top:12px;font-size:14px;line-height:1.8;color:var(--mut)}
+.eq-scroll-hint{font-size:12px;line-height:1.6;color:var(--jade);margin-top:8px}
+.symtab td.sym{font-size:18px;vertical-align:middle;color:var(--ink)}
+.symtab td.sym svg{display:block;max-width:none;overflow:visible}
+@media(max-width:600px){
+  #mdJoint>.card:has(.eqs){padding:22px 18px}
+  #mdJoint>.card:has(.eqs)>.ch{align-items:flex-start;flex-direction:column;gap:8px}
+  .eqsec{align-items:flex-start;line-height:1.6}
+  .eqr{padding:20px 0}
+  .eqf{font-size:19px;padding:18px 12px;gap:16px}
+  .eqh{font-size:14px}
+  .eqdesc{font-size:13px}
+}
