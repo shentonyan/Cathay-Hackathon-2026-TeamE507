@@ -29,6 +29,27 @@ Use unit tests for business rules, contract tests for API and serialization chan
 
 测试用合成或获准使用的样例，避免依赖实时外部服务。发生缺陷时优先补能复现问题的测试。 / Use synthetic or authorized fixtures and avoid live external-service dependencies. Add a regression test when a defect can be reproduced.
 
+## 手机视图回归 / Mobile layout regression
+
+修改 Demo 布局后，用浏览器手机模拟模式开启触控，以 `demo2` / `demo` 登录，在 320、360、390、430 CSS px 宽度逐页检查六个管理员页面，再检查 768、1440 px。布局检查需查看实际画面，不能只依赖 `npm run check`。
+
+After changing the demo layout, enable touch in browser device emulation, sign in as the planner, and visit all six sections at 320, 360, 390 and 430 CSS px. Also check 768 and 1440 px. Inspect rendered pages as well as running the code checks.
+
+| 操作 / Action                                             | 验收 / Expected behavior                                                                                                                                                             |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 切换全部页签 / Visit every tab                            | 页签可横向滑动，当前页签可见；整页不横向溢出 / Tabs scroll locally, the active tab is visible, and the document fits the viewport                                                    |
+| 总览与降本减碳 / Overview and carbon                      | 指标、单位与阶梯标签完整；窄屏卡片不裁切 / Complete values, units and tier labels; cards remain within the viewport                                                                  |
+| 等待的代价 / Cost of waiting                              | 曲线有可见绘图区，阶段条对齐；放宽窗口后图表恢复 / A visible plot and aligned phase bar; the chart recovers when widened                                                             |
+| 全年图表 / Rolling-year chart                             | 每期柱状与累计曲线同时显示，左右坐标轴单位正确，图例不遮挡绘图区 / Period columns and the cumulative line both appear with the correct axis units; the legend stays outside the plot |
+| 排程与模型 / Schedule and model                           | 甘特图、资源表和长公式在各自区域横向滑动 / Gantt, resource tables and long formulas scroll within their own regions                                                                  |
+| 数字孪生 / Digital twin                                   | 手指拖动旋转模型，缩放与重置按钮可触控，模型外仍可滚动页面 / Touch drag rotates the model; zoom and reset controls work; the page still scrolls outside the model                    |
+| 工作包 / Work packs                                       | 点选后显示详情；接收、开始、逐项勾选、签署和退回可触控，长按钮可换行 / Selection reveals the detail; receive, start, checklist, sign and return controls remain usable               |
+| 助手、显示菜单与弹窗 / Assistant, display menu and modals | 内容可滚动，关闭按钮可见；开启大字及高对比后重新检查六页 / Scrollable content and reachable close controls; repeat all sections with large text and high contrast                    |
+
+浏览器模拟不能替代实体 iOS / Android 设备验收。 / Browser emulation does not replace testing on physical iOS and Android devices.
+
+更新 `app.js` 或 `mobile.css` 时，同步 `site/index.html` 中对应的版本参数，使已访问过网站的浏览器加载更新后的资源。 / When changing these assets, update their version query parameters in the site entry page so returning browsers load the revised files.
+
 ## 检查边界 / Limits
 
 当前导入规则针对 JavaScript/ES modules，无法替代未来 TypeScript 类型检查或 Python 检查。文档检查不访问外网，也不检查页内锚点。通过 CI 不等同于已完成业务验收、性能评估或生产验证。

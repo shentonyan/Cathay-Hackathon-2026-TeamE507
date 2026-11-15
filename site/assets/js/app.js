@@ -69,6 +69,28 @@ const can=a=>ROLES[S.role].can.includes(a);
 const roleName=()=>ROLES[S.role].n;
 function toast(m){const e=$('toast');e.textContent=m;e.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>e.classList.remove('on'),2400);}
 
+// Follow an explicit list selection when the detail is below the mobile list.
+function mobileDetail(target){
+  if(!target||!window.matchMedia('(max-width: 1180px)').matches) return;
+  requestAnimationFrame(()=>{
+    const header=document.querySelector('.top');
+    const sticky=header&&['sticky','fixed'].includes(getComputedStyle(header).position);
+    const offset=sticky?header.getBoundingClientRect().height:0;
+    target.tabIndex=-1;
+    target.focus({preventScroll:true});
+    const reduced=A11Y.rm||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-offset-16),behavior:reduced?'auto':'smooth'});
+  });
+}
+
+function watchTopHeight(){
+  const header=document.querySelector('.top'); if(!header) return;
+  const update=()=>document.documentElement.style.setProperty('--top-height',Math.ceil(header.getBoundingClientRect().height)+'px');
+  update();
+  if(typeof ResizeObserver!=='undefined') new ResizeObserver(update).observe(header);
+  else window.addEventListener('resize',update,{passive:true});
+}
+
 // ---------------- Highcharts 外觀 ----------------
 Highcharts.setOptions({chart:{style:{fontFamily:getComputedStyle(document.documentElement).getPropertyValue('--font')||'sans-serif'},backgroundColor:'transparent',animation:false,spacing:[24,18,18,12]},
   credits:{enabled:false},title:{text:null},accessibility:{enabled:false},exporting:{enabled:false},
@@ -83,16 +105,22 @@ const chart=(id,o)=>{
   const large=document.documentElement.classList.contains('a11y-lg'),font=large?'15px':'13px';
   const contrast=document.documentElement.classList.contains('a11y-hc'),ink=contrast?'#0d3a38':'#4f6a66';
   const h=(o.chart&&o.chart.height||360)+(large?80:0);
+  const axisStyle=axis=>Highcharts.merge({},axis||{},{labels:{style:{fontSize:font,color:ink}},title:{style:{fontSize:font,color:ink}}});
+  const yAxes=Array.isArray(o.yAxis)?o.yAxis.map(axisStyle):axisStyle(o.yAxis);
+  const legendCount=o.legend&&o.legend.enabled===false?0:(o.series||[]).filter(s=>s.showInLegend!==false).length;
+  const captionSpace=o.caption&&o.caption.text?(large?88:72):0;
+  const mobileBottom=56+(legendCount?legendCount*(large?30:26)+24:0)+captionSpace;
+  const mobileHeight=Math.max(h+90,224+mobileBottom);
   const options=Highcharts.merge({},o,{chart:{height:h},
     xAxis:{labels:{style:{fontSize:font,color:ink}},title:{style:{fontSize:font,color:ink}}},
-    yAxis:{labels:{style:{fontSize:font,color:ink}},title:{style:{fontSize:font,color:ink}}},
+    yAxis:yAxes,
     legend:{itemStyle:{fontSize:font,color:ink}},
     plotOptions:{series:{dataLabels:{allowOverlap:false,style:{fontSize:font}}}},
-    responsive:{rules:[{condition:{maxWidth:520},chartOptions:{chart:{height:h+90,spacing:[24,12,18,8]},
-      legend:{layout:'vertical',align:'left',verticalAlign:'bottom',itemMarginTop:4,itemMarginBottom:4},
+    responsive:{rules:[{condition:{maxWidth:520},chartOptions:{chart:{height:mobileHeight,spacing:[24,12,18,8],marginTop:24,marginBottom:mobileBottom},
+      legend:{layout:'vertical',align:'left',verticalAlign:'bottom',itemMarginTop:4,itemMarginBottom:4,y:-captionSpace},
       xAxis:{tickPixelInterval:110,labels:{autoRotation:undefined}},
-      yAxis:{tickPixelInterval:72},
-      plotOptions:{column:{dataLabels:{enabled:false}},bar:{dataLabels:{enabled:false}}}}}]}});
+      yAxis:Array.isArray(o.yAxis)?o.yAxis.map(()=>({tickPixelInterval:72})):{tickPixelInterval:72},
+      plotOptions:{column:{dataLabels:{enabled:false}},bar:{dataLabels:{enabled:false}}}}},...(o.responsive&&o.responsive.rules||[])]}});
   return charts[id]=Highcharts.chart(id,options);
 };
 // ===== 等待的代價（Cost-of-Waiting）· v8.2 版式 =====
@@ -154,7 +182,10 @@ const chart=(id,o)=>{
     host.classList.add('cow-stage');
     const phases = phasesOf(curve);
     const xmax = Math.max(0.001, Number(curve.pts[curve.pts.length - 1].s) || 0.001);
-    const plotWidth = Math.max(1, hc.plotWidth || 1);
+    const availableWidth = Math.max(0, Math.min(host.clientWidth || hc.chartWidth || 0, hc.chartWidth || host.clientWidth || 0));
+    const plotLeft = Math.max(0, Math.min(Number(hc.plotLeft) || 0, availableWidth - Math.min(120, availableWidth)));
+    const remainingWidth = Math.max(0, availableWidth - plotLeft);
+    const plotWidth = Math.min(remainingWidth, Number(hc.plotWidth) > 1 ? hc.plotWidth : remainingWidth);
     const position = day => Math.max(0, Math.min(1, Number(day || 0) / xmax)) * plotWidth;
     const labelPositions = cowSpread(phases.map(phase => position((phase.a + phase.b) / 2)), 76, 34, Math.max(34, plotWidth - 34));
     const windows = Array.isArray(curve.wins) ? curve.wins : [];
@@ -190,7 +221,7 @@ const chart=(id,o)=>{
         <span><i class="cow-key cow-key-base"></i>現行做法：<b>${esc(cowOptionText(baseline))}</b></span>
         ${starActual == null ? '' : `<span class="cow-cost-note">s* 實際窗口成本 ${HK(starActual)}${refAtStar == null ? '' : `；同日參照曲線 ${HK(refAtStar)}`}</span>`}
       </div>
-      <div class="cow-track" style="margin-left:${hc.plotLeft}px;width:${plotWidth}px">
+      <div class="cow-track" style="margin-left:${plotLeft}px;width:${plotWidth}px">
         <div class="cow-window-marks">
           ${windows.map((option, index) => `<span style="left:${windowPositions[index]}px" title="${esc(`${option.w.id} · ${KIND[option.w.kind] || option.w.kind} · ${option.w.st} · ${MODE[option.m] || option.m} · 實際窗口成本 ${HK(option.base)}`)}">${esc(option.w.id)}</span>`).join('')}
         </div>
@@ -416,6 +447,20 @@ const chart=(id,o)=>{
       caption: {
         useHTML: true,
         text: `評估期 ${P.evalDays} 天 · HK$ · 1 US$ = ${USD} HK$ · 五項成本共同驅動聯合決策`
+      },
+      responsive: {
+        rules: [{
+          condition: {maxWidth: 520},
+          chartOptions: {
+            // Bound automatic axis margins so narrow charts retain a plot area.
+            chart: {marginLeft: 72, marginRight: 12},
+            xAxis: {tickInterval: null, tickPixelInterval: 70, labels: {rotation: 0}},
+            yAxis: {
+              title: {text: '成本（千港元）', margin: 4},
+              labels: {distance: 6, x: 0, formatter() { return fmt(this.value); }, style: {width: '46px'}}
+            }
+          }
+        }]
       }
     });
   }
@@ -485,7 +530,15 @@ function renderRoll(){
     legend:{align:'left',verticalAlign:'top'},tooltip:{shared:true,formatter(){const p=R[this.points[0].point.index];return `<b>第 ${p.k} 期 · ${p.date}</b><br>${p.n} 項工作（換件 ${p.nR}）<br>本期節省 <b>${money?HK(p.b.total-p.j.total):'—'}</b><br>本期減碳 <b>${fmt(p.b.co2-p.j.co2)} 噸</b><br>累計節省 <b>${money?HK(cumS[p.k-1][1]):'—'}</b>`;}},
     plotOptions:{column:{borderWidth:0,borderRadius:3,pointPadding:0.08,groupPadding:0.06}},
     series:[{type:'column',name:'每期節省',data:R.map(p=>({y:p.b.total-p.j.total,color:p.season>1.05?'#2f8f86':'#6fb3a5'})),color:'#6fb3a5'},
-      {type:'spline',name:'累計節省',yAxis:1,data:cumS.map(x=>x[1]),color:'#006564',lineWidth:2.6,marker:{enabled:false}}]});
+      {type:'spline',name:'累計節省',yAxis:1,data:cumS.map(x=>x[1]),color:'#006564',lineWidth:2.6,marker:{enabled:false}}],
+    responsive:{rules:[{condition:{maxWidth:520},chartOptions:{
+      chart:{height:A11Y.lg?540:460,marginLeft:48,marginRight:48,marginBottom:196},
+      legend:{y:A11Y.lg?-80:-64},
+      xAxis:{labels:{step:6}},
+      yAxis:[{title:{text:null},labels:{distance:4,x:0,formatter(){return money?(this.value/1e6).toFixed(1)+'M':'';}}},
+        {opposite:true,title:{text:null},labels:{distance:4,x:0,formatter(){return money?(this.value/1e6).toFixed(0)+'M':'';}}}],
+      caption:{text:money?'縱軸：百萬港元（M） · 柱：每期 · 線：累計':'金額依權限隱藏。',align:'left',style:{fontSize:'12px'}}
+    }}]}});
   const b=$('rlRun'); if(b) b.onclick=rollRun;
 }
 
@@ -595,7 +648,9 @@ function renderOverview(){
     yAxis:{title:{text:null},labels:{formatter(){return money?'HK$'+(this.value/1e6).toFixed(0)+'M':'';}},reversedStacks:false},
     legend:{align:'left'},tooltip:{shared:true,pointFormatter(){return `<span style="color:${this.color}">●</span> ${this.series.name}：<b>${money?HK(this.y):'—'}</b><br>`;}},
     plotOptions:{bar:{stacking:'normal',borderWidth:0,pointWidth:30}},
-    series:K.map(([k,n,c])=>({name:n,data:[Y.comps.b[k],Y.comps.j[k]],color:c}))});
+    series:K.map(([k,n,c])=>({name:n,data:[Y.comps.b[k],Y.comps.j[k]],color:c})),
+    responsive:{rules:[{condition:{maxWidth:520},chartOptions:{chart:{marginLeft:84,marginRight:12},
+      xAxis:{labels:{x:-6,style:{width:'68px'}}}}}]}});
   const ch=T.map(t=>{const b=B.plan[t.id],j=J.plan[t.id];return {t,b,j,d:(b?b.base:0)-(j?j.base:0)};}).filter(x=>x.b&&x.j&&(x.b.w.id!==x.j.w.id||x.b.m!==x.j.m)).sort((a,b)=>Math.abs(b.d)-Math.abs(a.d)).slice(0,5);
   $('ovChg').innerHTML=ch.map(x=>`<button class="chg" data-id="${x.t.id}"><span class="tg" style="--c:${LV_COL[level(x.t,x.j)]}"></span><div><b>${x.t.reg} · ${x.t.name}</b><small>${winTxt(x.b)} → <em>${winTxt(x.j)}</em>${x.t.pool&&x.b.m!==x.j.m?` · 備件 ${MODE[x.b.m]} → ${MODE[x.j.m]}`:''}</small></div><span class="dv ${x.d<0?'neg':''}">${money?(x.d>=0?'省 ':'多 ')+HK(Math.abs(x.d)):''}</span></button>`).join('');
   qa('#ovChg .chg').forEach(b=>b.onclick=()=>{S.sel=b.dataset.id;showView('plan');});
@@ -709,7 +764,7 @@ function renderPlan(){
     const moved=b&&j&&(b.w.d!==j.w.d||b.w.kind!==j.w.kind);
     return `<button class="gr ${t.id===S.sel?'on':''}" data-id="${t.id}"><div class="gl"><span class="tg" style="--c:${LV_COL[lv]}"></span><b>${t.reg}</b><span>${esc(t.name)}</span></div>
       <div class="gx">${moved&&b&&j?`<s class="ln" style="left:${Math.min(X_(b.w.kind==='defer'?days+.7:b.w.d),X_(j.w.kind==='defer'?days+.7:j.w.d))}%;width:${Math.abs(X_(b.w.kind==='defer'?days+.7:b.w.d)-X_(j.w.kind==='defer'?days+.7:j.w.d))}%"></s>`:''}${bar(b,'b')}${bar(j,'j '+(t.cls==='R'?'r':'p'))}</div></button>`;}).join('');
-  qa('#gantt .gr').forEach(r=>r.onclick=()=>{S.sel=r.dataset.id;renderPlan();});
+  qa('#gantt .gr').forEach(r=>r.onclick=()=>{S.sel=r.dataset.id;renderPlan();mobileDetail(document.querySelector('#v-plan .detail'));});
   renderDetail(); renderRoll();
 }
 function whyText(t,j,b,c){
@@ -774,7 +829,7 @@ function renderLine(){
   const groups={}; L.forEach(x=>{const k=x.o.w.kind==='defer'?'下次定檢':x.o.w.d<=1?'第 1 天 · 今晚':'第 '+x.o.w.d+' 天'; (groups[k]=groups[k]||[]).push(x);});
   $('lineList').innerHTML=(L.length?Object.entries(groups).map(([g,xs])=>`<div class="lg"><span>${g}</span><em>${xs.length}</em></div>`+xs.map(x=>{const [sn,sc]=WP_ST[x.r.st];
     return `<button class="li ${x.t.id===S.lineSel?'on':''}" data-id="${x.t.id}"><span class="tg" style="--c:${LV_COL[level(x.t,x.o)]}"></span><div><b>${x.t.reg} · ${esc(x.t.name)}</b><small>${CITY[x.o.w.st]||''} · ${winSub(x.o)}</small></div><em class="wst" style="--c:${sc}">${sn}</em></button>`;}).join('')).join(''):'<p class="muted small" style="padding:16px">沒有符合條件的工作。</p>');
-  qa('#lineList .li').forEach(b=>b.onclick=()=>{S.lineSel=b.dataset.id;renderLine();});
+  qa('#lineList .li').forEach(b=>b.onclick=()=>{S.lineSel=b.dataset.id;renderLine();mobileDetail($('lineCard'));});
   const t=byId(S.lineSel), o=S.J.plan[t.id], r=wp(t.id), lv=level(t,o), st=steps(t), chk=(r.chk||[]).slice(0,st.length), nDone=chk.filter(Boolean).length, [sn,sc]=WP_ST[r.st];
   const why=whyText(t,o,S.B.plan[t.id],curveOf(t))[t.cls==='R'?1:0]||'';
   const canChk=r.st==='started', allDone=nDone===st.length;
@@ -885,11 +940,18 @@ function renderCarbon(){
     </div>
     <p class="note">換算：減排噸數 × 10⁶ ÷ 集團 RTK 22,266 百萬。①為模型計算；②–④為逐級擴大的推廣情景，後一級已包含前一級，不能相加。燃油節省未扣除額外維修與設備成本；②–④須以試點實測驗證。</p>`;
   $('cbRealization').onchange=e=>{const v=Number(e.target.value); if([1,0.75,0.5].includes(v)){CARBON_REALIZATION=v; renderCarbon();}};
-  $('cbTiers').innerHTML=`<div class="ladder"><div class="ld-h"><span>級別</span><span>每年減 CO₂</span><span>碳強度</span><span>完成 2030 差距</span><span>每年節省</span></div>`+L.map((x,i)=>`<div class="ld-r ${i===3?'hi':''}"><div class="ld-n"><em class="s${i+1}">${i+1}</em><div><b>${esc(x.n)}</b><small>${esc(x.d)} · ${esc(x.src)}</small></div></div><span class="v">${fmt(x.co2/1000,1)}<small> 千噸</small></span><span>−${x.g.toFixed(2)} g</span><span class="p"><i style="width:${Math.min(100,x.pct*4)}%"></i><b>${x.pct.toFixed(1)}%</b></span><span>${money?HK(x.save):'—'}</span></div>`).join('')+`</div>`;
+  $('cbTiers').innerHTML=`<div class="ladder"><div class="ld-h"><span>級別</span><span>每年減 CO₂</span><span>碳強度</span><span>完成 2030 差距</span><span>每年節省</span></div>`+L.map((x,i)=>`<div class="ld-r ${i===3?'hi':''}"><div class="ld-n"><em class="s${i+1}">${i+1}</em><div><b>${esc(x.n)}</b><small>${esc(x.d)} · ${esc(x.src)}</small></div></div><span class="v" data-label="每年減 CO₂">${fmt(x.co2/1000,1)}<small> 千噸</small></span><span data-label="碳強度">−${x.g.toFixed(2)} g</span><span class="p" data-label="完成 2030 差距"><i style="width:${Math.min(100,x.pct*4)}%"></i><b>${x.pct.toFixed(1)}%</b></span><span data-label="每年節省">${money?HK(x.save):'—'}</span></div>`).join('')+`</div>`;
   const ps=T.filter(t=>t.cls==='P');
   chart('cbChart',{chart:{type:'bar',height:Math.max(420,ps.length*36),spacing:[16,24,20,12]},xAxis:{categories:ps.map(t=>t.reg+' · '+t.name.replace('（雙發）','')),labels:{style:{fontSize:'12px'}}},yAxis:{min:0,title:{text:'60 天額外 CO₂（噸）'}},
     tooltip:{shared:true,valueDecimals:1,valueSuffix:' 噸'},legend:{align:'left',verticalAlign:'top'},plotOptions:{bar:{borderWidth:0,borderRadius:3,groupPadding:0.16,pointPadding:0.05}},
-    series:[{name:'現行做法',data:ps.map(t=>C.Bb.plan[t.id]?.co2||0),color:'#c4d3d1'},{name:'聯合排程',data:ps.map(t=>C.Jb.plan[t.id]?.co2||0),color:'#6fb3a5'},{name:'減碳優先',data:ps.map(t=>C.Jc.plan[t.id]?.co2||0),color:'#006564'}]});
+    series:[{name:'現行做法',data:ps.map(t=>C.Bb.plan[t.id]?.co2||0),color:'#c4d3d1'},{name:'聯合排程',data:ps.map(t=>C.Jb.plan[t.id]?.co2||0),color:'#6fb3a5'},{name:'減碳優先',data:ps.map(t=>C.Jc.plan[t.id]?.co2||0),color:'#006564'}],
+    responsive:{rules:[{condition:{maxWidth:520},chartOptions:{
+      chart:{height:ps.length*(A11Y.lg?80:70)+200,marginLeft:112,marginRight:12},
+      xAxis:{labels:{step:1,x:-6,style:{width:'94px',whiteSpace:'normal',textOverflow:'clip'},formatter(){
+        const [reg,name]=String(this.value).split(' · ');
+        return [reg,...((name||'').match(/.{1,6}/gu)||[])].map(esc).join('<br/>');
+      }}}
+    }}]}});
   $('cbAct').innerHTML=`<p>減碳優先：內部碳價 US$250／噸，並增加一套清洗設備。本期同一批工作再多減 <b>${fmt(C.Jb.co2-C.Jc.co2,0)} 噸</b> CO₂${money?`，預期成本${C.dCash<=0?'再省':'增加'} <b>${HK(Math.abs(C.dCash))}</b>（未計設備購置）`:''}。</p><button type="button" class="btn pri" id="cbApplyPlan">套用減碳優先排程</button>`;
   $('cbApplyPlan').onclick=()=>{S.scen='carbon';S.over={};solve();showView('plan');toast('已載入減碳優先情景');};
   $('cbEq').innerHTML=[['① 試點','量度實際節油','清洗、漏氣修復、氣動恢復做前後比較，控制航段、載重與天氣。'],['② 接入工作包','把建議變成行動','維修記錄連到燃油結果；未執行的原因回饋到排程。'],['③ 全集團推廣','逐級擴大到 ④','以試點數據校準參數，再推廣到全部機型。']].map(([x,y,z])=>`<div><small>${x}</small><b>${y}</b><span>${z}</span></div>`).join('');
@@ -1049,6 +1111,7 @@ function applyRole(){const R=ROLES[S.role]; qa('.nav[data-v]').forEach(n=>n.hidd
   document.documentElement.classList.toggle('r-eng',S.role==='eng');}
 function showView(v){const R=ROLES[S.role]; if(!R.views.includes(v)) v=R.views[0]; S.view=v;
   qa('.nav[data-v]').forEach(n=>{const on=n.dataset.v===v; n.classList.toggle('on',on); n.setAttribute('aria-current',on?'page':'false');});
+  if(window.matchMedia('(max-width: 680px)').matches){const nav=document.querySelector(`.nav[data-v="${v}"]`); if(nav) nav.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});}
   qa('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v)); renderView(); window.scrollTo&&window.scrollTo(0,0);}
 function renderView(){const v=S.view; try{
   if(v==='overview') renderOverview(); else if(v==='plan') renderPlan(); else if(v==='line') renderLine(); else if(v==='carbon') renderCarbon(); else if(v==='model') renderModel(); else if(v==='twin') renderTwin();
@@ -1367,7 +1430,8 @@ function twUI(){
   $('twCrumb').innerHTML=cr.join('<i>›</i>');
   qa('#twCrumb [data-c]').forEach(b=>b.onclick=()=>{if(b.dataset.c==='ac') twGo('ac'); else twGo('part',TW.part);});
   $('twBack').hidden=TW.level==='ac';
-  $('twHint').textContent=TW.level==='ac'?'拖曳旋轉 · 滾輪縮放 · 點選部件，雙擊打開':TW.level==='part'?'點選零件查看狀態，雙擊進行零件對比':'左：正常件　右：問題件　紅圈為判讀位置';
+  const touch=window.matchMedia('(pointer: coarse)').matches;
+  $('twHint').textContent=TW.level==='ac'?(touch?'拖動旋轉 · ＋／− 縮放 · 點選部件，再按打開':'拖曳旋轉 · 滾輪縮放 · 點選部件，雙擊打開'):TW.level==='part'?(touch?'拖動旋轉 · ＋／− 縮放 · 點選零件查看狀態':'點選零件查看狀態，雙擊進行零件對比'):'左：正常件　右：問題件　紅圈為判讀位置';
   const card=it=>{const t=it.t,o=it.o; return `<div class="tw-task" style="--c:${LV_COL[it.lv]}"><b>${esc(t.name)}</b><small>${winTxt(o)} · ${winSub(o)}${t.pool?' · 備件：'+MODE[o.m]:''}</small>
       <div class="kv"><span>${t.cls==='R'?'剩餘壽命':'每天多耗油'}<b>${t.cls==='R'?t.mu.toFixed(1)+' 天':t.f0.toFixed(2)+' 噸'}</b></span><span>${t.cls==='R'?'執行時失效概率':'修復後可恢復'}<b>${t.cls==='R'?pct(o.pf):(t.r*100).toFixed(0)+'%'}</b></span></div></div>`;};
   const uniq=[...new Map(p.items.map(i=>[i.t.id,i])).values()];
@@ -1412,6 +1476,8 @@ function twGo(level,part,sub){
 function twBind(){
   $('twBack').onclick=()=>TW.level==='cmp'?twGo('part',TW.part,TW.sub):twGo('ac');
   $('twReset').onclick=()=>twFrame(true);
+  $('twZoomIn').onclick=()=>{if(TWR) TWR.cam.tDist=Math.max(0.8,Math.min(400,TWR.cam.tDist*0.8));};
+  $('twZoomOut').onclick=()=>{if(TWR) TWR.cam.tDist=Math.max(0.8,Math.min(400,TWR.cam.tDist*1.2));};
 }
 
 // ---------- WebGL ----------
@@ -1514,6 +1580,8 @@ function twControls(el){
         if(TW.level==='ac'){TW.selPart=hit.part; if(dbl) twGo('part',hit.part); else twUI();}
         else if(hit.sub){TW.sub=hit.sub; if(dbl&&SPEC_OK.includes(hit.sub)) twGo('cmp',TW.part,hit.sub); else twUI();}}
       else last=null;} p=null;});
+  el.addEventListener('pointercancel',()=>{p=null;last=null;});
+  el.addEventListener('lostpointercapture',()=>{p=null;});
   el.addEventListener('contextmenu',e=>e.preventDefault());
   el.addEventListener('wheel',e=>{e.preventDefault(); const c=TWR.cam; c.tDist=Math.max(0.8,Math.min(c.tDist*Math.exp(e.deltaY*0.0012),400));},{passive:false});
   el.tabIndex=0; el.setAttribute('aria-label','3D 模型，方向鍵旋轉，加減號縮放');
@@ -1562,6 +1630,7 @@ function twLoop(now){
 
 // ================= 初始化 =================
 function init(){
+  watchTopHeight();
   gateStats();
   qa('.g-brush').forEach(i=>i.src=BRUSH_WHITE); qa('.g-brush-g').forEach(i=>i.src=BRUSH_GREEN);
   qa('.nav[data-v]').forEach(n=>n.onclick=()=>showView(n.dataset.v));

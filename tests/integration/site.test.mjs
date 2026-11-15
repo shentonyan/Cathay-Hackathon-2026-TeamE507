@@ -27,7 +27,9 @@ test('GitHub Pages 配置 / GitHub Pages setup', () => {
 });
 
 test('脚本按依赖顺序加载 / scripts load in dependency order', () => {
-  const scripts = refs.filter((r) => r.endsWith('.js'));
+  const scripts = refs
+    .map((r) => new URL(r, site).pathname)
+    .filter((r) => r.endsWith('.js'));
   const at = (name) => scripts.findIndex((s) => s.endsWith(name));
   assert.ok(at('three.min.js') < at('part-specimens.js'));
   assert.ok(at('joint-model.js') < at('rolling-sim.js'));

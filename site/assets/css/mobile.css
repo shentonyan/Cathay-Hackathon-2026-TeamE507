@@ -1,0 +1,609 @@
+/* Responsive layout overrides. Preserve readable charts and model data. */
+#twCanvas canvas {
+  touch-action: none;
+}
+
+.tw-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.tw-controls .btn {
+  min-height: 44px;
+}
+
+.tw-controls .tw-zoom {
+  min-width: 44px;
+  padding: 8px;
+  font-size: 20px;
+}
+
+/* This section shares the "top" class with the header, but stays in flow. */
+.cb-action.top {
+  position: static;
+  z-index: auto;
+}
+
+@media (max-width: 1100px) {
+  .kpis,
+  .rl-k,
+  .lsum,
+  .cb-hero.three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kpis > *,
+  .rl-k > *,
+  .lsum > *,
+  .cb-hero > *,
+  .ld-r > * {
+    min-width: 0;
+  }
+
+  .ld-r {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ld-r > [data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 5px;
+    color: var(--mut);
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .ld-r .p {
+    grid-template-columns: minmax(0, 1fr) 52px;
+  }
+
+  .ld-r .p::before {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: calc(var(--top-height, 110px) + 12px);
+  }
+
+  main {
+    padding: 0 16px 28px;
+  }
+
+  .top {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 8px;
+    padding: 8px 12px;
+  }
+
+  .top .logo {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .top .logo .cx-lock {
+    height: clamp(17px, 5.2vw, 23px);
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .top .tools {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .top .tool-button,
+  .top .a11y {
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+  }
+
+  .top .tool-button {
+    height: 44px;
+    min-height: 44px;
+    padding: 9px;
+    justify-content: center;
+  }
+
+  .top .tool-button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  #btnOut {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px 4px;
+  }
+
+  .top .who {
+    display: none;
+  }
+
+  .top .nav-c {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 4px;
+    min-width: 0;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    scrollbar-width: thin;
+    scrollbar-color: #91b9ae transparent;
+    overscroll-behavior-x: contain;
+  }
+
+  .top .nav {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  .menu {
+    position: fixed;
+    top: calc(var(--top-height, 110px) + 8px);
+    left: 12px;
+    right: 12px;
+    min-width: 0;
+    max-width: none;
+    max-height: calc(100dvh - var(--top-height, 110px) - 24px);
+    margin-top: 0;
+    overflow-y: auto;
+  }
+
+  .hero,
+  .hero.sm {
+    padding: 28px 0 22px;
+  }
+
+  .hero h1,
+  .hero.sm h1 {
+    font-size: clamp(28px, 7.4vw, 36px);
+    line-height: 1.25;
+  }
+
+  .hero .lead {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .card,
+  #mdJoint > .card:has(.eqs) {
+    padding: 20px 18px;
+    border-radius: 18px;
+  }
+
+  .ch,
+  .hero .acts,
+  .acts {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .ch {
+    gap: 10px;
+  }
+
+  .ch h2 {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .card h3,
+  .detail h2 {
+    line-height: 1.5;
+  }
+
+  .detail h2 {
+    flex-wrap: wrap;
+  }
+
+  .btn,
+  .ic,
+  .ts,
+  .tl,
+  .tp,
+  .model-details > summary {
+    min-height: 44px;
+  }
+
+  .btn {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.5;
+  }
+
+  input:not([type='checkbox']):not([type='range']),
+  select,
+  textarea {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .kpi,
+  .rl-k > div,
+  .ls,
+  .cb-hero > div {
+    min-width: 0;
+    padding: 18px;
+  }
+
+  .kpi b,
+  .rl-k b,
+  .cb-hero.three b {
+    font-size: clamp(28px, 7.5vw, 36px);
+    line-height: 1.2;
+  }
+
+  .kpi small,
+  .rl-k span,
+  .cb-hero span {
+    line-height: 1.6;
+  }
+
+  .cow-picker {
+    display: grid;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .cow-picker select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .cow-stage {
+    padding: 6px 0 16px;
+  }
+
+  .cow-summary,
+  .cow-phase-legend,
+  .cw-g,
+  .dg,
+  .g2,
+  .ln,
+  .model-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cow-track {
+    max-width: 100%;
+  }
+
+  .cow-window-marks span,
+  .cow-phase-labels span {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .cow-phase-labels {
+    /* Full phase names and ranges remain in the legend below the track. */
+    display: none;
+  }
+
+  .cw-c {
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .cw-c b {
+    white-space: normal;
+  }
+
+  .tbl,
+  #dOpts {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .tbl table {
+    min-width: 480px;
+  }
+
+  .model-table-wrap,
+  .gantt,
+  .rg {
+    max-width: 100%;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+  }
+
+  .gantt .gr {
+    min-height: 48px;
+  }
+
+  #scnSeg {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  #scnSeg button {
+    min-height: 44px;
+    padding: 8px 10px;
+    white-space: normal;
+  }
+
+  .fr {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .fd {
+    gap: 8px;
+    align-items: center;
+  }
+
+  .fd i.d {
+    width: 24px;
+    height: 24px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    transform: none;
+  }
+
+  .chg {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px 12px;
+  }
+
+  .chg .dv {
+    grid-column: 2;
+  }
+
+  .tw-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    max-height: 240px;
+    overflow-y: auto;
+    padding: 12px;
+  }
+
+  .tw-list .tl-h {
+    grid-column: 1 / -1;
+  }
+
+  .tw-list .tl {
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+  }
+
+  .tw-stage {
+    height: clamp(360px, 65svh, 520px);
+  }
+
+  .tw-crumb {
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    flex-wrap: wrap;
+    border-radius: 12px;
+    padding: 4px;
+  }
+
+  .tw-crumb button {
+    min-height: 36px;
+  }
+
+  .tw-bot {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tw-side {
+    max-height: none;
+  }
+
+  .ln-list {
+    max-height: min(380px, 50svh);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 12px;
+  }
+
+  .ln-list .seg.full {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ln-list .seg.full button {
+    min-height: 44px;
+    white-space: normal;
+  }
+
+  .li {
+    grid-template-columns: 10px minmax(0, 1fr) 64px;
+    gap: 8px;
+    min-height: 60px;
+    padding: 10px 8px;
+  }
+
+  .li b,
+  .li small {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .ln-card {
+    padding: 20px 18px 0;
+    min-height: 0;
+  }
+
+  .lc-h {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .lc-h > .wst {
+    justify-self: start;
+  }
+
+  .lc-h h2 {
+    font-size: 23px;
+  }
+
+  .lc-facts,
+  .lc-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lc-acts {
+    position: static;
+    margin: 18px -18px 0;
+    padding: 16px 18px;
+    gap: 12px;
+  }
+
+  .lc-main {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lc-main .btn,
+  .lc-acts > .btn {
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .chk label {
+    gap: 10px;
+    padding: 13px 12px;
+  }
+
+  #lineCard,
+  #v-plan .detail {
+    scroll-margin-top: calc(var(--top-height, 110px) + 16px);
+  }
+
+  .cb-hero.three {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cb-realization,
+  .cb-realization select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .ld-n > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .g2-bar > i.rest span {
+    left: 8px;
+    right: 8px;
+    font-size: 11px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .ai {
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100dvh - 16px);
+  }
+
+  .ai-log {
+    min-height: 0;
+  }
+
+  .ai-h .ic,
+  .mbox .x {
+    min-height: 44px;
+    min-width: 52px;
+  }
+
+  .ai-chips {
+    max-height: 28dvh;
+    overflow-y: auto;
+  }
+
+  .ai-chips button {
+    min-height: 44px;
+    white-space: normal;
+  }
+
+  .mbox {
+    width: calc(100% - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 24px 18px;
+  }
+
+  .mbox h2 {
+    padding-right: 50px;
+  }
+
+  .mbox .x {
+    right: 10px;
+    top: 10px;
+  }
+
+  .ftr {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    line-height: 1.7;
+  }
+
+  .ftr a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .toast {
+    max-width: calc(100vw - 24px);
+    white-space: normal;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpis,
+  .rl-k {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lsum {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ls {
+    padding: 14px;
+  }
+}
