@@ -1,0 +1,4 @@
+# Development-only dependencies for README PNG generation; never used by the demo.
+matplotlib==3.11.1
+numpy==2.5.3
+pillow==12.3.0

@@ -1,12 +1,14 @@
 # Cathay AaaS · 维修决策订阅服务 / MRO decision-as-a-service
 
-[![CI](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/actions/workflows/ci.yml/badge.svg)](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/actions/workflows/ci.yml)
-[![Pages](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/actions/workflows/pages.yml/badge.svg)](https://shentonyan.github.io/Cathay-Hackathon-2026-TeamE507/)
-![Node 24](https://img.shields.io/badge/node-24-006564)
-![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-006564)
-![Cathay Hackathon 2026](https://img.shields.io/badge/Cathay%20Hackathon-2026%20%C2%B7%20Wildcard-004d4b)
+[![持續整合 / CI](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/actions/workflows/ci.yml/badge.svg)](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/actions/workflows/ci.yml)
+[![網站部署 / Pages](https://github.com/shentonyan/Cathay-Hackathon-2026-TeamE507/actions/workflows/pages.yml/badge.svg)](https://shentonyan.github.io/Cathay-Hackathon-2026-TeamE507/)
+![執行環境 / Node 24](https://img.shields.io/badge/node-24-006564)
+![復現環境 / Python 3.11+](https://img.shields.io/badge/python-3.11%2B-006564)
+![國泰黑客松 / Cathay Hackathon 2026](https://img.shields.io/badge/Cathay%20Hackathon-2026%20%C2%B7%20Wildcard-004d4b)
 
-![Cathay AaaS banner](docs/assets/banner.png)
+持續整合（CI） · 網站部署（Pages） · 執行與復現環境（Node / Python） · 自選題賽道（Wildcard）。
+
+![維修決策訂閱服務：全集團推廣情景 / Cathay AaaS group roll-out scenario](docs/assets/banner.zh-Hant.png)
 
 **每项维修，落在最划算又安全的那一天。 / Every maintenance job, on its cheapest safe day.**
 
@@ -47,7 +49,7 @@ Team E507 FastenUrSeatBelt turns Cathay's maintenance decision capability into a
 
 Too early wastes remaining part life; too late multiplies AOG risk and deteriorated fuel burn. Every job has a U-shaped cost-of-waiting curve. Yet if each job picks its own cheapest day, they collide on the same wash rigs, hangar bays and spare engines: in period 1 the per-job optimum looks like HK\$4.37M but has **6 resource conflicts** and cannot be executed.
 
-![Cost of waiting](docs/assets/cost-of-waiting.png)
+![等待的代價：DEMO-07 的五項成本與風險截止 / Cost of waiting](docs/assets/cost-of-waiting.zh-Hant.png)
 
 | 排法 / Approach                                 | 第 1 期成本 / Period-1 cost | 可行 / Feasible                  |
 | ----------------------------------------------- | --------------------------- | -------------------------------- |
@@ -61,7 +63,7 @@ Too early wastes remaining part life; too late multiplies AOG risk and deteriora
 
 Not one period × 26. Period 1 is the 21 jobs in the current plan; later periods draw new jobs at fleet-scale rates, spare engines return from shop after ~75 days and carry across periods, and peak seasons consume more background labour. Current practice and the joint decision each run all 26 periods.
 
-![Rolling year](docs/assets/rolling-year.png)
+![全年滾動模擬：26 期、484 項工作及累計節省 / Rolling-year simulation](docs/assets/rolling-year.zh-Hant.png)
 
 | 情景 / Scenario               | 全年节省 / Saving | 降幅 / Δ | 全年减 CO₂ / CO₂ avoided |
 | ----------------------------- | ----------------: | -------: | -----------------------: |
@@ -76,7 +78,7 @@ Not one period × 26. Period 1 is the 21 jobs in the current plan; later periods
 
 Cathay Group targets 670 g CO₂/RTK by 2030, 76 g below 2025's 746 g. Rolled out step by step, maintenance timing can close about one fifth of the gap — while saving roughly HK\$1,870 of fuel per tonne of CO₂ avoided.
 
-![2030 target](docs/assets/target-2030.png)
+![2030 減碳目標：四個累積級別，不能相加 / Cumulative carbon-reduction tiers](docs/assets/target-2030.zh-Hant.png)
 
 | 级别 / Tier                                 | 每年减 CO₂ / CO₂ per year | 完成差距 / Gap closed | 性质 / Nature                 |
 | ------------------------------------------- | ------------------------: | --------------------: | ----------------------------- |
@@ -93,11 +95,15 @@ Cathay Group targets 670 g CO₂/RTK by 2030, 76 g below 2025's 746 g. Rolled ou
 
 Modelled on Cathay's actual types and engines. Drill from aircraft to component, then compare a healthy part with the defective one side by side.
 
-| 整机 / Aircraft                              | 部件 / Component                       | 零件对比 / Part compare                       |
-| -------------------------------------------- | -------------------------------------- | --------------------------------------------- |
-| ![777-300ER](docs/assets/twin-777-300er.png) | ![Engine](docs/assets/twin-engine.png) | ![Compare](docs/assets/twin-part-compare.png) |
+| 整機 / Aircraft                                                                                                                           | 發動機分解 / Engine                                                                                                        |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [![整機數字孿生：波音 777-300ER / Aircraft digital twin](docs/assets/twin-777-300er.zh-Hant.png)](docs/assets/twin-777-300er.zh-Hant.png) | [![GE90-115B 發動機分解 / Engine exploded view](docs/assets/twin-engine.zh-Hant.png)](docs/assets/twin-engine.zh-Hant.png) |
 
-仓库附有演示图像；浏览器中以 WebGL 实时渲染模型。尺寸依制造商公开规格，内部结构为示意。 / The repository includes demo images; the browser renders the models live with WebGL. Dimensions follow public manufacturer specs; internals are illustrative.
+[![零件狀態對比：左為正常件，右為 DEMO-07 合成問題件 / Component comparison](docs/assets/twin-part-compare.zh-Hant.png)](docs/assets/twin-part-compare.zh-Hant.png)
+
+三幅圖由實際 Demo 的 WebGL 畫面擷取，附中英標題；點圖可放大。尺寸依製造商公開規格，內部結構為示意，操作資料為合成。 / Captured from the live WebGL demo with bilingual headings; click to enlarge. Dimensions follow public manufacturer specs; internals are illustrative and operational data is synthetic.
+
+圖表以目前程式中的基準情景與推廣參數重新產生；重繪指引見[配圖工具 / Figure tools](scripts/docs/README.md)。 / Charts use the current base scenario and roll-out parameters; see the figure guide.
 
 ## 怎样运作 / How it works
 

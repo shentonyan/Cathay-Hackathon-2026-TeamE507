@@ -50,6 +50,16 @@ After changing the demo layout, enable touch in browser device emulation, sign i
 
 更新 `app.js` 或 `mobile.css` 时，同步 `site/index.html` 中对应的版本参数，使已访问过网站的浏览器加载更新后的资源。 / When changing these assets, update their version query parameters in the site entry page so returning browsers load the revised files.
 
+## iPad 扫码打开 / Opening the demo on iPad
+
+以未登录的浏览器会话打开扫码目标的[公开地址](https://shentonyan.github.io/Cathay-Hackathon-2026-TeamE507/)。先检查登录页，再以管理员账户访问六页；覆盖 768×1024、810×1080、820×1180、834×1194、1024×1366 及对应横屏，以及 507、694 CSS px 分屏宽度。切换方向后复查图表、公式、导航、助手及弹窗，并实际操作工作包和数字孪生。
+
+Open the public QR destination in a signed-out browser session. Check sign-in and all six planner sections at the portrait sizes above, their landscape counterparts, and the two split-view widths. Repeat after rotation and exercise work packs, twin controls and overlays.
+
+2026-11-15 复验：Chromium 触控模拟覆盖 72 个视图及 6 次方向切换；Windows WebKit 覆盖 36 个视图，并验证工作包签署、甘特图选取、弹窗和 3D 操作，未发现布局或功能缺陷。此记录是浏览器内核与尺寸模拟结果，实体 iPad 相机扫码、iPadOS Safari 和软键盘仍需真机验收。
+
+Verified on 2026-11-15: Chromium touch emulation passed 72 views and six rotation checks; Windows WebKit passed 36 views plus work-pack, schedule, modal and 3D interactions. These are engine and viewport checks; physical camera scanning, iPadOS Safari and the software keyboard require device testing.
+
 ## 检查边界 / Limits
 
 当前导入规则针对 JavaScript/ES modules，无法替代未来 TypeScript 类型检查或 Python 检查。文档检查不访问外网，也不检查页内锚点。通过 CI 不等同于已完成业务验收、性能评估或生产验证。
