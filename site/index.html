@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#006564">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/mobile.css?v=8f72a718e903">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="cx-lock" viewBox="0 0 1036.1 122">
@@ -228,7 +229,7 @@
       <div class="tw-stage">
         <div class="tw-crumb" id="twCrumb"></div>
         <div id="twCanvas"></div><div class="tw-pins" id="twPins"></div><div class="tw-labels" id="twLabels" aria-hidden="true"></div>
-        <div class="tw-bot"><span id="twHint"></span><span><button class="btn sm glass" id="twBack" hidden="">返回</button> <button class="btn sm glass" id="twReset">重置視角</button></span></div>
+        <div class="tw-bot"><span id="twHint"></span><span class="tw-controls"><button class="btn sm glass" id="twBack" hidden="">返回</button><button class="btn sm glass tw-zoom" id="twZoomOut" aria-label="縮小 3D 模型">−</button><button class="btn sm glass tw-zoom" id="twZoomIn" aria-label="放大 3D 模型">＋</button><button class="btn sm glass" id="twReset">重置視角</button></span></div>
       </div>
       <aside class="card tw-side" id="twSide" aria-live="polite"></aside>
     </div>
@@ -284,6 +285,6 @@
 <script src="assets/js/joint-model.js"></script>
 <script src="assets/js/part-specimens.js"></script>
 <script src="assets/js/rolling-sim.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app.js?v=d737afbf121d"></script>
 </body>
 </html>

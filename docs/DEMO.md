@@ -48,6 +48,7 @@
 - [ ] `npm run check` 通过。 / Checks pass.
 - [ ] Chrome 或 Edge 已开启硬件加速，数字孪生可显示。 / Hardware acceleration on; the twin renders.
 - [ ] 「显示」菜单三个开关均为关。 / Display toggles are off.
+- [ ] 手机按[回归清单](TESTING.md)检查页签、图表、公式滑动及工作包操作。 / On mobile, check tabs, charts, formula scrolling and work-pack actions using the regression checklist.
 - [ ] 以 `demo1` 演示退回后，已回到 `demo2` 并处理回馈或清除浏览器数据。 / Feedback demo reset.
 - [ ] 屏幕与录屏不含敏感信息。 / No sensitive information on screen.
 - [ ] 已记录 commit，并在冻结版本上彩排。 / Commit recorded and rehearsed.
