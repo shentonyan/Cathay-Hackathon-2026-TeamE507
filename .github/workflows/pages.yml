@@ -39,7 +39,7 @@ jobs:
       - name: Verify site and algorithms / 验证站点与算法
         run: node --test tests/integration/site.test.mjs tests/unit/scheduler.test.mjs
       - name: Configure Pages / 配置 Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload site / 上传站点
         uses: actions/upload-pages-artifact@v3
         with:
