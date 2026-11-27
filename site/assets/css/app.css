@@ -65,6 +65,8 @@ a{color:var(--jade)}
 
 /* 版面 */
 main{max-width:1240px;margin:0 auto;padding:0 32px 40px;outline:none}
+.view-load{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:24px;padding:16px 20px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--ink2)}
+.view-load.failed{border-color:#e5484d;color:#a52f32}.view-load .btn{flex:none}
 .view{display:none}.view.on{display:block;animation:fi .35s ease}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .hero{padding:64px 0 36px}
