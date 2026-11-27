@@ -36,3 +36,24 @@ jobs:
         run: npm ci
       - name: Quality gates / 质量检查
         run: npm run check
+
+  browser:
+    name: Browser (Chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout / 获取代码
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Node.js / 配置运行环境
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install locked dependencies / 安装锁定依赖
+        run: npm ci
+      - name: Install Chromium / 安装 Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Static site browser smoke tests / 静态站点浏览器测试
+        run: npm run test:e2e

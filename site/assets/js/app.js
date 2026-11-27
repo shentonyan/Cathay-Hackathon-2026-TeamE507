@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-const JM=globalThis.JointModel, X=globalThis.JointModelX, USD=JM.USD;
+const JM=globalThis.JointModel, X=globalThis.JointModelX, USD=JM.USD, ASSETS=globalThis.SiteAssets;
 const $=id=>document.getElementById(id);
 const qa=(s,r)=>[...(r||document).querySelectorAll(s)];
 const fmt=(x,d=0)=>Number(x).toLocaleString('zh-Hant',{maximumFractionDigits:d,minimumFractionDigits:d});
@@ -91,27 +91,36 @@ function watchTopHeight(){
   else window.addEventListener('resize',update,{passive:true});
 }
 
-// ---------------- Highcharts 外觀 ----------------
-Highcharts.setOptions({chart:{style:{fontFamily:getComputedStyle(document.documentElement).getPropertyValue('--font')||'sans-serif'},backgroundColor:'transparent',animation:false,spacing:[24,18,18,12]},
-  credits:{enabled:false},title:{text:null},accessibility:{enabled:false},exporting:{enabled:false},
-  tooltip:{backgroundColor:'rgba(255,255,255,.98)',borderWidth:1,borderColor:'#d8e3e0',borderRadius:12,shadow:false,style:{fontSize:'14px',color:'#0d3a38'}},
-  legend:{itemStyle:{fontSize:'13px',fontWeight:'400',color:'#445451'},symbolRadius:5,itemDistance:20,itemMarginTop:5,itemMarginBottom:5,padding:8,margin:20},
-  xAxis:{lineColor:'#dce3e1',tickLength:0,tickPixelInterval:95,labels:{padding:8,style:{fontSize:'13px',color:'#53635f'}},title:{margin:20,style:{fontSize:'13px',color:'#53635f'}}},
-  yAxis:{gridLineColor:'#edf1ef',tickPixelInterval:64,labels:{padding:8,style:{fontSize:'13px',color:'#53635f'}},title:{margin:22,style:{fontSize:'13px',color:'#53635f'}}},
-  plotOptions:{series:{animation:false,states:{inactive:{opacity:1}},dataLabels:{allowOverlap:false,crop:true,overflow:'justify',padding:6,style:{fontSize:'13px',textOutline:'none'}}}}});
+// ---------------- Highcharts 外觀（圖表頁啟用時才設定） ----------------
+let chartsReady=false;
+function setupCharts(){
+  if(chartsReady) return;
+  const HC=globalThis.Highcharts;
+  if(!HC) throw new Error('Highcharts 尚未載入');
+  HC.setOptions({chart:{style:{fontFamily:getComputedStyle(document.documentElement).getPropertyValue('--font')||'sans-serif'},backgroundColor:'transparent',animation:false,spacing:[24,18,18,12]},
+    credits:{enabled:false},title:{text:null},accessibility:{enabled:false},exporting:{enabled:false},
+    tooltip:{backgroundColor:'rgba(255,255,255,.98)',borderWidth:1,borderColor:'#d8e3e0',borderRadius:12,shadow:false,style:{fontSize:'14px',color:'#0d3a38'}},
+    legend:{itemStyle:{fontSize:'13px',fontWeight:'400',color:'#445451'},symbolRadius:5,itemDistance:20,itemMarginTop:5,itemMarginBottom:5,padding:8,margin:20},
+    xAxis:{lineColor:'#dce3e1',tickLength:0,tickPixelInterval:95,labels:{padding:8,style:{fontSize:'13px',color:'#53635f'}},title:{margin:20,style:{fontSize:'13px',color:'#53635f'}}},
+    yAxis:{gridLineColor:'#edf1ef',tickPixelInterval:64,labels:{padding:8,style:{fontSize:'13px',color:'#53635f'}},title:{margin:22,style:{fontSize:'13px',color:'#53635f'}}},
+    plotOptions:{series:{animation:false,states:{inactive:{opacity:1}},dataLabels:{allowOverlap:false,crop:true,overflow:'justify',padding:6,style:{fontSize:'13px',textOutline:'none'}}}}});
+  chartsReady=true;
+}
 const charts={};
 const chart=(id,o)=>{
   if(charts[id]){try{charts[id].destroy();}catch(e){}}
+  const HC=globalThis.Highcharts;
+  if(!HC) throw new Error('Highcharts 尚未載入');
   const large=document.documentElement.classList.contains('a11y-lg'),font=large?'15px':'13px';
   const contrast=document.documentElement.classList.contains('a11y-hc'),ink=contrast?'#0d3a38':'#4f6a66';
   const h=(o.chart&&o.chart.height||360)+(large?80:0);
-  const axisStyle=axis=>Highcharts.merge({},axis||{},{labels:{style:{fontSize:font,color:ink}},title:{style:{fontSize:font,color:ink}}});
+  const axisStyle=axis=>HC.merge({},axis||{},{labels:{style:{fontSize:font,color:ink}},title:{style:{fontSize:font,color:ink}}});
   const yAxes=Array.isArray(o.yAxis)?o.yAxis.map(axisStyle):axisStyle(o.yAxis);
   const legendCount=o.legend&&o.legend.enabled===false?0:(o.series||[]).filter(s=>s.showInLegend!==false).length;
   const captionSpace=o.caption&&o.caption.text?(large?88:72):0;
   const mobileBottom=56+(legendCount?legendCount*(large?30:26)+24:0)+captionSpace;
   const mobileHeight=Math.max(h+90,224+mobileBottom);
-  const options=Highcharts.merge({},o,{chart:{height:h},
+  const options=HC.merge({},o,{chart:{height:h},
     xAxis:{labels:{style:{fontSize:font,color:ink}},title:{style:{fontSize:font,color:ink}}},
     yAxis:yAxes,
     legend:{itemStyle:{fontSize:font,color:ink}},
@@ -121,7 +130,7 @@ const chart=(id,o)=>{
       xAxis:{tickPixelInterval:110,labels:{autoRotation:undefined}},
       yAxis:Array.isArray(o.yAxis)?o.yAxis.map(()=>({tickPixelInterval:72})):{tickPixelInterval:72},
       plotOptions:{column:{dataLabels:{enabled:false}},bar:{dataLabels:{enabled:false}}}}},...(o.responsive&&o.responsive.rules||[])]}});
-  return charts[id]=Highcharts.chart(id,options);
+  return charts[id]=HC.chart(id,options);
 };
 // ===== 等待的代價（Cost-of-Waiting）· v8.2 版式 =====
   const COW_COMPONENTS = [
@@ -1106,17 +1115,46 @@ function gateKeydown(e){if(!$('gate').classList.contains('on'))return;const chec
   if(!items.length)return;const first=items[0],last=items[items.length-1];if(e.shiftKey&&(document.activeElement===first||!scope.contains(document.activeElement))){e.preventDefault();last.focus();}else if(!e.shiftKey&&(document.activeElement===last||!scope.contains(document.activeElement))){e.preventDefault();first.focus();}
 }
 
-// ================= 導航 =================
+// ================= 導航與按需資源 =================
+const VIEW_GROUPS={overview:['charts'],plan:['charts'],twin:['twin'],line:[],carbon:['charts'],model:['charts','model']};
+const GROUP_NAMES={charts:'圖表',model:'公式',twin:'3D 模型'};
+let viewActivation=0;
 function applyRole(){const R=ROLES[S.role]; qa('.nav[data-v]').forEach(n=>n.hidden=!R.views.includes(n.dataset.v)); $('who').textContent=R.n; $('whoSub').textContent='';
   document.documentElement.classList.toggle('r-eng',S.role==='eng');}
-function showView(v){const R=ROLES[S.role]; if(!R.views.includes(v)) v=R.views[0]; S.view=v;
+function selectView(v){const R=ROLES[S.role]; if(!R.views.includes(v)) v=R.views[0]; S.view=v; const token=++viewActivation;
   qa('.nav[data-v]').forEach(n=>{const on=n.dataset.v===v; n.classList.toggle('on',on); n.setAttribute('aria-current',on?'page':'false');});
   if(window.matchMedia('(max-width: 680px)').matches){const nav=document.querySelector(`.nav[data-v="${v}"]`); if(nav) nav.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});}
-  qa('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v)); renderView(); window.scrollTo&&window.scrollTo(0,0);}
-function renderView(){const v=S.view; try{
+  qa('.view').forEach(e=>{const on=e.id==='v-'+v;e.classList.toggle('on',on);e.setAttribute('aria-busy','false');});
+  window.scrollTo&&window.scrollTo(0,0); return token;
+}
+function setViewStatus(message,retry,failed){const box=$('viewLoad');box.hidden=!message;box.classList.toggle('failed',!!failed);
+  box.setAttribute('role',failed?'alert':'status');$('viewLoadText').textContent=message||'';$('viewLoadRetry').hidden=!retry;
+  if(retry) $('viewLoadRetry').onclick=()=>showView(S.view);
+}
+async function activateView(v){
+  const token=selectView(v), required=VIEW_GROUPS[v]||[], section=$('v-'+v);
+  const current=()=>token===viewActivation&&S.view===v&&!document.documentElement.classList.contains('gated');
+  try{
+    if(!required.every(name=>ASSETS.isLoaded(name))){
+      section.setAttribute('aria-busy','true');
+      setViewStatus('正在載入'+required.map(name=>GROUP_NAMES[name]).join('與')+'…',false,false);
+      for(const name of required){await ASSETS.load(name);if(!current())return;}
+    }
+    if(!current())return;
+    if(required.includes('charts'))setupCharts();
+    renderView();
+    if(!current())return;
+    section.setAttribute('aria-busy','false');setViewStatus('',false,false);
+  }catch(e){
+    if(!current())return;
+    section.setAttribute('aria-busy','false');setViewStatus('資源載入失敗，請檢查連線後重試。',true,true);console.error(v,e);
+  }
+}
+function showView(v){return activateView(v);}
+function renderView(){const v=S.view; if(!(VIEW_GROUPS[v]||[]).every(name=>ASSETS.isLoaded(name)))return; try{
   if(v==='overview') renderOverview(); else if(v==='plan') renderPlan(); else if(v==='line') renderLine(); else if(v==='carbon') renderCarbon(); else if(v==='model') renderModel(); else if(v==='twin') renderTwin();
   }catch(e){console.error(v,e);} }
-function renderAll(){CARB=null; renderView();}
+function renderAll(){CARB=null;return showView(S.view);}
 
 const NACA=x=>5*(0.2969*Math.sqrt(Math.max(x,0))-0.126*x-0.3516*x*x+0.2843*x*x*x-0.1036*x*x*x*x);
 function twMaterials(){
@@ -1638,7 +1676,7 @@ function init(){
   $('gReg').onclick=subscriptionOpen;$('gSalesClose').onclick=()=>subscriptionClose(false);$('gSalesOk').onclick=()=>subscriptionClose(true);
   $('gSubscribe').addEventListener('submit',subscriptionSubmit);$('gate').addEventListener('keydown',gateKeydown);
   $('gSales').onclick=e=>{if(e.target===$('gSales'))subscriptionClose(false);};
-  $('btnOut').onclick=()=>{const role=S.role;try{sessionStorage.removeItem('cx_aaas_auth');sessionStorage.removeItem('cx_aaas_external_email');}catch(e){} audit('登出',roleName());aiToggle(false);gateRole(role);gateShow(true);};
+  $('btnOut').onclick=()=>{const role=S.role;viewActivation++;setViewStatus('',false,false);try{sessionStorage.removeItem('cx_aaas_auth');sessionStorage.removeItem('cx_aaas_external_email');}catch(e){} audit('登出',roleName());aiToggle(false);gateRole(role);gateShow(true);};
   $('btnAI').onclick=()=>{accessMenu(false);aiToggle();}; $('aiClose').onclick=()=>{aiToggle(false);$('btnAI').focus();};
   $('aiForm').addEventListener('submit',e=>{e.preventDefault(); const q=$('aiIn').value; $('aiIn').value=''; aiAsk(q);});
   $('btnA11y').onclick=e=>{e.stopPropagation();accessMenu(!$('a11yMenu').classList.contains('on'),true);};
@@ -1653,7 +1691,7 @@ function init(){
   twBind();
   applyA11y();
   let auth=null; try{auth=sessionStorage.getItem('cx_aaas_auth');}catch(e){}
-  if(auth&&ROLES[auth]&&(auth!=='external'||validExternalSession())){gateRole(auth);enter(auth,true);}else{try{sessionStorage.removeItem('cx_aaas_auth');sessionStorage.removeItem('cx_aaas_external_email');}catch(e){}gateRole(auth==='external'?'external':'mcc');applyRole();gateShow(true);showView('overview');}
+  if(auth&&ROLES[auth]&&(auth!=='external'||validExternalSession())){gateRole(auth);enter(auth,true);}else{try{sessionStorage.removeItem('cx_aaas_auth');sessionStorage.removeItem('cx_aaas_external_email');}catch(e){}gateRole(auth==='external'?'external':'mcc');applyRole();gateShow(true);selectView('overview');}
 }
 solve();
 globalThis.__app={gateStats,rollParams,rollFor,rollRun,renderRoll,wpSet,wp,feedbackList,renderFeedback,renderLine,carbonTiers,cowRenderPhase,curveOf,byId,LG,S,MD,renderModel,COW,selfish,annual,cowData,T,W,get P(){return P},solve,showView,renderAll,enter,aiAns,TW,twParts,twBuild,twFrame,twSpecInfo,get TWR(){return TWR},set TWR(v){TWR=v},twMaterials,carbonCalc,planAircraft,level,twMap};

@@ -175,7 +175,7 @@ python experiments/rul-cmapss/train_rul.py      # RMSE 10.65 · score 200 · PIC
 ├── site/                      Demo 静态站点，GitHub Pages 发布 / Demo site published to Pages
 │   ├── index.html
 │   └── assets/
-│       ├── js/                排程引擎、滚动模拟、零件模型、界面 / Engine, rolling sim, parts, UI
+│       ├── js/                排程引擎、滚动模拟、按需加载器、零件模型、界面 / Engine, rolling sim, lazy loader, parts, UI
 │       ├── data/              模型卡、预计算结果、排版后的公式 / Model card, precomputed results, formulas
 │       ├── css/  img/
 │       └── vendor/            Highcharts、three.js（见第三方声明）/ Third-party libraries
@@ -183,8 +183,8 @@ python experiments/rul-cmapss/train_rul.py      # RMSE 10.65 · score 200 · PIC
 │   ├── rul-cmapss/            剩余寿命模型：下载、训练、结果 / RUL model: data, training, results
 │   └── joint-scheduler/       全年滚动模拟复现 / Rolling-year reproduction
 ├── data/samples/              Demo 输入与公开数据卡 / Demo inputs and public facts
-├── scripts/site/              本地预览、引擎加载、公式排版 / Preview, engine loader, formula build
-├── tests/                     单元、契约、集成测试 / Unit, contract and integration tests
+├── scripts/site/              本地预览、引擎加载、公式排版、JS 预算与量测 / Preview, engine loader, formula build, JS budget and measurement
+├── tests/                     单元、契约、集成与 Playwright 测试 / Unit, contract, integration and Playwright tests
 ├── apps/web/ services/api/ packages/   原开发模板 / Original monorepo starter
 ├── docs/                      手册、模型、数据、决策记录 / Handbook, model, data, ADRs
 └── .github/workflows/         CI 与 Pages 部署 / CI and Pages deployment
@@ -192,18 +192,23 @@ python experiments/rul-cmapss/train_rul.py      # RMSE 10.65 · score 200 · PIC
 
 ## 常用命令 / Commands
 
-| 命令 / Command               | 用途 / Purpose                                |
-| ---------------------------- | --------------------------------------------- |
-| `npm run site`               | 本地预览 Demo / Preview the demo              |
-| `npm run reproduce:schedule` | 复现全年滚动模拟 / Reproduce the rolling year |
-| `npm run dev`                | 启动原开发预览 / Start the starter preview    |
-| `npm run check`              | 执行全部质量检查 / Run all quality checks     |
-| `npm run format`             | 统一文件格式 / Format files                   |
-| `npm run lint`               | ESLint 静态检查 / ESLint analysis             |
-| `npm run lint:architecture`  | 模块依赖约束 / Dependency boundaries          |
-| `npm run docs:check`         | 本地文档链接 / Local documentation links      |
-| `npm test`                   | 全部自动测试 / All automated tests            |
-| `npm run test:contracts`     | HTTP 响应契约 / HTTP response conformance     |
+| 命令 / Command               | 用途 / Purpose                                                               |
+| ---------------------------- | ---------------------------------------------------------------------------- |
+| `npm run site`               | 本地预览 Demo / Preview the demo                                             |
+| `npm run measure:site`       | 本机移动端 LCP 与脚本字节量测 / Local mobile LCP and script-byte measurement |
+| `npm run reproduce:schedule` | 复现全年滚动模拟 / Reproduce the rolling year                                |
+| `npm run dev`                | 启动原开发预览 / Start the starter preview                                   |
+| `npm run check`              | 执行全部质量检查 / Run all quality checks                                    |
+| `npm run check:site-js`      | 检查首屏 JS 不超过基线 50% / Enforce the 50% initial-JS budget               |
+| `npm run format`             | 统一文件格式 / Format files                                                  |
+| `npm run lint`               | ESLint 静态检查 / ESLint analysis                                            |
+| `npm run lint:architecture`  | 模块依赖约束 / Dependency boundaries                                         |
+| `npm run docs:check`         | 本地文档链接 / Local documentation links                                     |
+| `npm test`                   | 全部 Node 自动测试 / All Node automated tests                                |
+| `npm run test:e2e`           | 390 px 与 1440 px Chromium 测试 / Chromium tests at 390 px and 1440 px       |
+| `npm run test:contracts`     | HTTP 响应契约 / HTTP response conformance                                    |
+
+首次运行 `npm run test:e2e` 前安装 Chromium：`npx playwright install chromium`。当前首屏 JS 为 **305,220 bytes**，较 **2,950,307 bytes** 基线减少 **89.7%**；量测配置、单次 LCP 样本与限制见[测试与质量检查](docs/TESTING.md)。 / Install Chromium with `npx playwright install chromium` before the first `npm run test:e2e`. Initial JavaScript is now **305,220 bytes**, down **89.7%** from the **2,950,307-byte** baseline; see [testing and quality gates](docs/TESTING.md) for the measurement profile, single-sample LCP and limitations.
 
 ## 数据与诚信 / Data integrity
 
@@ -236,6 +241,10 @@ python experiments/rul-cmapss/train_rul.py      # RMSE 10.65 · score 200 · PIC
 | [架构 / Architecture](docs/ARCHITECTURE.md) | 模块边界与依赖 / Boundaries and dependencies                      |
 | [测试 / Testing](docs/TESTING.md)           | 分层验证与质量门槛 / Test layers and gates                        |
 | [贡献 / Contributing](CONTRIBUTING.md)      | 分支、PR 与双语写作 / Branches, PRs, bilingual writing            |
+
+## AI 协作 / AI collaboration
+
+2026-11-28 的站点按需加载、首屏 JS 预算、Playwright 测试与性能量测由 Qoder 会话助手（HungerG）在 @shentonyan 指导下提供 AI 协助完成；项目、科学结果与发布决定仍由团队负责。 / The 2026-11-28 lazy-loading, initial-JS budget, Playwright tests and performance measurement were prepared with AI assistance from Qoder session assistant (HungerG), under the direction of @shentonyan. The team retains responsibility for the project, scientific results and publication decisions.
 
 ## 许可与声明 / Licensing and notices
 

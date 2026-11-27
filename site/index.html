@@ -7,7 +7,7 @@
 <meta name="description" content="E507 FastenUrSeatBelt — Cathay Hackathon 2026. Cost-of-Waiting joint maintenance scheduling, RUL prediction and digital twin. Demo with synthetic operational data.">
 <meta name="theme-color" content="#006564">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/app.css?v=8d2f4c1a6e">
 <link rel="stylesheet" href="assets/css/mobile.css?v=8f72a718e903">
 </head>
 <body>
@@ -186,6 +186,7 @@
 </header>
 
 <main id="main" tabindex="-1">
+  <div class="view-load" id="viewLoad" role="status" aria-live="polite" hidden><span id="viewLoadText"></span><button type="button" class="btn sm" id="viewLoadRetry" hidden>重試</button></div>
   <section class="view" id="v-overview">
     <div class="hero" id="ovHead"></div>
     <div class="kpis" id="ovKpi"></div>
@@ -275,16 +276,12 @@
 <div class="modal" id="modal"><div class="mbox"><button class="ic x" id="mClose" aria-label="關閉">關閉</button><div id="mBody"></div></div></div>
 <div class="busy" id="busy"><span>重新計算中…</span></div>
 <div class="toast" id="toast" role="status"></div>
-<script src="assets/vendor/highcharts.js"></script>
-<script src="assets/vendor/highcharts-more.js"></script>
-<script src="assets/vendor/three.min.js"></script>
 <script src="assets/data/cmapss-rul.js"></script>
 <script src="assets/data/brand-assets.js"></script>
-<script src="assets/data/model-formulas.js"></script>
 <script src="assets/data/rolling-year.js"></script>
 <script src="assets/js/joint-model.js"></script>
-<script src="assets/js/part-specimens.js"></script>
 <script src="assets/js/rolling-sim.js"></script>
-<script src="assets/js/app.js?v=d737afbf121d"></script>
+<script src="assets/js/lazy-loader.js?v=8d2f4c1a6e"></script>
+<script src="assets/js/app.js?v=8d2f4c1a6e"></script>
 </body>
 </html>
